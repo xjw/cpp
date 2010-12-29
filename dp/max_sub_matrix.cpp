@@ -55,6 +55,32 @@ void getMaxMatrix(bool a[M][N]) {
   }
 }
 
+void getMaxMatrixBruteforce(bool a[][N]) {
+  int max, max_x, max_y;
+  max = max_x = max_y = 0;
+  for (int i=0; i<M; ++i) {
+    for (int j=0; j<N; ++j) {
+      int x, y, cur_max;
+      x = i;
+      y = j;
+      while(x<M && a[x][y]) {
+        while(y<N && a[y]) y++;
+        x++;
+      }
+      x--;
+      y--;
+      cur_max = (x-i) * (y-j);
+      cout<<cur_max<<endl;
+      if (cur_max>max) {
+        max = cur_max;
+        max_x = x;
+        max_y = y;
+      }
+    }
+  }
+  cout<<max_x<<"-"<<max_y<<"="<<max<<endl;
+}
+
 int main() {
   bool a[M][N] = 
    {
@@ -65,7 +91,8 @@ int main() {
     {1, 1, 1, 1, 1},
     {0, 0, 0, 0, 0}
    };
-  getMaxMatrix(a);
+  // getMaxMatrix(a);
+  getMaxMatrixBruteforce(a);
   
   return 1;
 }
