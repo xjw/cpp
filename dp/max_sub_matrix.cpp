@@ -55,30 +55,36 @@ void getMaxMatrix(bool a[M][N]) {
   }
 }
 
+bool isAllOne(bool a[M][N], int x1, int y1, int x2, int y2) {
+  for (int i=x1; i<=x2; ++i) {
+    for (int j=y1; j<=y2; ++j) {
+      if (!a[i][j]) return false;
+    }
+  }
+  return true;
+}
+
 void getMaxMatrixBruteforce(bool a[][N]) {
-  int max, max_x, max_y;
-  max = max_x = max_y = 0;
+  int max, max_i, max_j;
+  max = max_i = max_j = 0;
   for (int i=0; i<M; ++i) {
     for (int j=0; j<N; ++j) {
-      int x, y, cur_max;
-      x = i;
-      y = j;
-      while(x<M && a[x][y]) {
-        while(y<N && a[y]) y++;
-        x++;
-      }
-      x--;
-      y--;
-      cur_max = (x-i) * (y-j);
-      cout<<cur_max<<endl;
-      if (cur_max>max) {
-        max = cur_max;
-        max_x = x;
-        max_y = y;
+      for (int x=i; x<M; ++x) {
+        for (int y=j; y<N; ++y) {
+          if (isAllOne(a, i, j, x, y)) {
+            int cur_max = (x-i) * (y-j);
+            if (cur_max>max) {
+              max = cur_max;
+              max_i = i;
+              max_j = j;
+              // cout<<max_i<<"-"<<max_j<<"-"<<x<<"-"<<y<<"-"<<max<<endl;
+            }
+          }
+        }
       }
     }
   }
-  cout<<max_x<<"-"<<max_y<<"="<<max<<endl;
+  cout<<max_i<<"-"<<max_j<<"="<<max<<endl;
 }
 
 int main() {
@@ -87,7 +93,7 @@ int main() {
     {0, 1, 1, 0, 1},
     {1, 1, 0, 1, 0},
     {0, 1, 1, 1, 0},
-    {1, 1, 1, 1, 0},
+    {1, 1, 1, 1, 1},
     {1, 1, 1, 1, 1},
     {0, 0, 0, 0, 0}
    };
