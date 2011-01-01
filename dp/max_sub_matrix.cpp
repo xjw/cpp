@@ -209,23 +209,32 @@ void getMaxMatrixCaching(bool a[][N]) {
 /////////////////////////////////////////////////////////////////////////
 // Solution 4 Better Caching
 void updateBetterCaching(bool a[][N], int c[][N], int j) {
-  for (int i=0; i<M; ++i) {
-
+  c[M-1] = a[M-1][j]? 1 : 0;
+  for (int i=M-2; i>=0; --i) {
+    if (a[i][j]) c[i] = c[i+1]+1;
+    else c[i] = 0;
   }
 }
-
 
 void getMaxMatrixBetterCaching(bool a[][N]) {
   int max, max_i, max_j, max_x, max_y;
   max = max_i = max_j = max_x = max_y = 0;
-  int c[N];
-  for (int i=0; i<N; ++i) c[i]=0;
+  int c[M];
+  for (int i=0; i<M-1; ++i) c[i]=0;
 
   stack< pair<int, int> > st;
   for (int j=N-1; j>=0; --j) {
     updateBetterCaching(a, c, i);
+    int max_width = 0;
+    pair<int, int> p;
     for (int i=M-1; i>=0; --i) {
-      // c[i][j] = 0;
+      int cur_width = c[i];
+      if (cur_width>max_width) {
+        p = make_pair(i, c[i]);
+        st.push(p);
+      }
+      else {
+      }
     }
   }
 }
