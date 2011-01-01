@@ -208,8 +208,10 @@ void getMaxMatrixCaching(bool a[][N]) {
 #include <stack>
 /////////////////////////////////////////////////////////////////////////
 // Solution 4 Better Caching
-void updateBetterCaching(bool a[][N], int c[][N], int i) {
-  c
+void updateBetterCaching(bool a[][N], int c[][N], int j) {
+  for (int i=0; i<M; ++i) {
+
+  }
 }
 
 
@@ -220,9 +222,9 @@ void getMaxMatrixBetterCaching(bool a[][N]) {
   for (int i=0; i<N; ++i) c[i]=0;
 
   stack< pair<int, int> > st;
-  for (int i=M-1; i>=0; --i) {
-    for (int j=N-1; j>=0; --j) {
-      updateBetterCaching(a, c, i);
+  for (int j=N-1; j>=0; --j) {
+    updateBetterCaching(a, c, i);
+    for (int i=M-1; i>=0; --i) {
       // c[i][j] = 0;
     }
   }
