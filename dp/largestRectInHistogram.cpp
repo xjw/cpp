@@ -81,6 +81,21 @@ int getLargestRecInHistogram2(int a[], int n) {
   return ret;
 }
 
+int getLargestRecInHistogramStack(int a[], int n) {
+  int *v = new int[n];
+  int *p = new int[n];
+  int top, area;
+  top = area = 0;
+  for (int i=0; i<n; ++i) {
+    while(top && a[i]<v[top]) {
+      area = (i-p[top])*(a[i]-)
+    }
+    p[top] = i;
+    v[top++] = a[i];
+
+  }
+}
+
 
 
 int main() {
