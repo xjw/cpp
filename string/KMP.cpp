@@ -5,43 +5,30 @@ using namespace std;
 
 const int CHAR_MAX=256;
 
-char *preCompute(char *s, int m[]) {
-  char *cp = s;
-  while(*cp) {
-    m[*cp-'0'] = cp-s;
-    cp++;
-  }
-}
 
-char * sunday(char *str1, char *str2) {
-  int m[CHAR_MAX];
+char *sunday(char *s1, char *s2) {
+  if (!s1 || !s2) return NULL;
+  int l1, l2;
+  l1 = strlen(s1);
+  l2 = strlen(s2);
+
+  int steps[CHAR_MAX];
   for (int i=0; i<CHAR_MAX; ++i) {
-    m[i] = -1;
+    steps[i] = l2+1;
   }
-  preCompute(str2,m);
-  // for (int i=0; i<CHAR_MAX; ++i) {
-    // cout<<m[i]<<endl;
-  // }
+  for (int i=0; i<l2; ++i) {
+    steps[s2[i]] = l2-i;
+  }
 
-  int l1 = strlen(str1);
-  int l2 = strlen(str2);
-  char *e1 = str1+l1-1;
-  char *e2 = str2+l2-1;
-  
-  char *s1 = str1;
-  char *s2 = str2;
-  char *p1, *p2;
-  while(*s1 && s1+l2-1<=e1) {
-    p1 = s1+l2-1;
-    p2 = s2+l2-1;
-    while(p2>=s2 && *p2==*p1) {
-      p2--;
-      p1--;
-    } 
-    if (p1<s1) return s1;
-    int idx = m[*p1-'0'];
-    if (idx == -1) s1+=(l2-1);
-    else s1+=(l2-idx-1);
+  int p1, p2, p;
+  p1 = p2 = l2-1;
+  while(p1<l1) {
+    p = p1;
+    while(p2>=0 && s1[p1]==s2[p2]) {p1--;p2--;}
+    if (p2<0) return s1+p1+1;
+    if (p == l1-1) return NULL;
+    p1 += steps[s1[p+1]];
+    p2 = l2-1;
   }
   return NULL;
 }
