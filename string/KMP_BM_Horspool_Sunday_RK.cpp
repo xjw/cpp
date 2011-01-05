@@ -63,6 +63,9 @@ char *sunday(char *s1, char *s2) {
   return NULL;
 }
 
+/**
+ *  http://blog.csdn.net/touzani/archive/2007/05/30/1632149.aspx
+ */
 char *rabin_karp(char *s1, char *s2, int d, int q) {
   if (!s1 || !s2) return NULL;
   int l1, l2;
