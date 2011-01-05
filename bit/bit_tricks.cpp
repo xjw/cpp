@@ -48,6 +48,10 @@ int getMostSignificantBit(int x) {
   return x;
 }
 
+int isOdd (int x) {
+  return x&1;
+}
+
 int main() {
   int x;
   int i;
