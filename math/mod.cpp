@@ -2,6 +2,10 @@
 
 using namespace std;
 
+/**
+ * if n = 2^k 
+ */
+
 unsigned int mod(int x, int n) {
   return x & (n - 1); 
 }
