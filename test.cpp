@@ -22,21 +22,6 @@ int words_count(char *str) {
   return count;
 }
 
-
-class A {
- public:
-  int a;
-  A() {cout<<"A"<<endl;}
-};
-
-class B : public A {
- public:
-  int a;
-  void p() {cout<<a<<endl;}
-  B() {cout<<"B"<<endl;}
-};
-
-
 struct eqstr {
   bool operator() (string s1, string s2) const {
     return (s1==s2);
@@ -49,9 +34,42 @@ struct eqsch {
   }
 };
 
+class A {
+ public:
+  const int i;
+  A(int d) : i(d) {
+  }
+  ~A() {
+    // throw 1;
+  }
+};
+
+void test() {
+  try {
+    A a(1);
+    throw 2;
+  }
+  catch (int e) {
+    cout<< e << endl;
+  }
+}
+
+class B {
+ public:
+  void t() {cout<<"tB"<<endl;}
+};
+
+class C {
+ public:
+  void t() {cout<<"tC"<<endl;}
+};
+
+class D : B, C {
+};
+
 int main() {
+  D d;
+  d.t();
+
   // hash_map<const char *, int, hash<const char *>, eqsch> month;
-  int a = 1;
-  a-=1+1;
-  cout<<a<<endl;
 }
