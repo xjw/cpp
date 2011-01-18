@@ -27,6 +27,26 @@ int my_lower_bound(int a[], int n, int x) {
   return l;
 }
 
+/**
+ * not exactly the same !!!!! with above 
+ * NONONOONONO THEY ARE NOT THE SAME
+ *
+ * BUT THE ONLY DIFFERENCE IS THE LARGEST RETURN
+ * THIS ONE RETURN n-1 at most
+ * THE ONE ABOVE RETURN n!!!!!!!!!!!!!!!!
+ */
+int my_lower_bound_2(int a[], int n, int x) {
+  int l, r, m;
+  l = 0;
+  r = n-1;
+  while(r>l) {
+    m = l + (r-l)/2;
+    if (a[m]<x) l = m+1;
+    else r = m;
+  }
+  return l;
+}
+
 int my_upper_bound(int a[], int n, int x) {
   int l, r, m;
   l = 0;
@@ -51,9 +71,10 @@ int main() {
   int x;
   while(cin>>x && x!= -1) {
     cout<<my_lower_bound(a, n, x)<<endl;
+    cout<<my_lower_bound_2(a, n, x)<<endl;
     cout<<int(lower_bound(v.begin(), v.end(), x) - v.begin())<<endl;
-    cout<<my_upper_bound(a, n, x)<<endl;
-    cout<<int(upper_bound(v.begin(), v.end(), x) - v.begin())<<endl;
+    // cout<<my_upper_bound(a, n, x)<<endl;
+    // cout<<int(upper_bound(v.begin(), v.end(), x) - v.begin())<<endl;
     cout<<endl;
   }
 

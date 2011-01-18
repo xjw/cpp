@@ -67,6 +67,25 @@ int findPivot(int a[], int n) {
   return a[l];
 }
 
+int rotatedBinarySearchBBB(int a[], int n, int x) {
+  int l=0;
+  int r=n-1;
+  while(r>=l) {
+    int m = l+(r-l)/2;
+    if (a[m] == x) return m;
+    if (a[m]>a[l]) {
+      if (a[m]>x && x>=a[l]) r=m-1;
+      else l=m+1;
+    }
+    else {
+      if (a[m]<x && x<=a[r]) l=m+1;
+      else r=m-1;
+    }
+  }
+  return -1;
+}
+
+
 int main() {
   //         0 1 2 3 4 5 6 7
   int a[] = {6,7,8,1,2,3,4,5};
@@ -83,5 +102,6 @@ int main() {
   int x;
   while(cin>>x && x != 'z') {
     cout << rotated_binary_search(a, x, 0, sizeof(a)/sizeof(a[0]) -1) << endl;
+    cout << rotatedBinarySearchBBB(a, sizeof(a)/sizeof(a[0]), x) << endl;
   }
 }
