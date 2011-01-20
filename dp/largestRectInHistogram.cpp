@@ -81,19 +81,43 @@ int getLargestRecInHistogram2(int a[], int n) {
   return ret;
 }
 
-int getLargestRecInHistogramStack(int a[], int n) {
-  int *v = new int[n];
-  int *p = new int[n];
-  int top, area;
-  top = area = 0;
-  for (int i=0; i<n; ++i) {
-    while(top && a[i]<v[top]) {
-      area = (i-p[top])*(a[i]-)
-    }
-    p[top] = i;
-    v[top++] = a[i];
+struct element {
+  int h;
+  int lwidth;
+  int idx;
+};
 
+const int N = 100;
+int getLargestRecInHistogram(int h[], int n) {
+  element e[N];
+  for (int i=0; i<n; ++i) {
+    e[i].h = h[i];
   }
+
+  int top=-1;
+  int max, area, lwidth;
+  max = area = 0;
+
+  for (int i=0; i<n; ++i) {
+    while (top!=-1 && h[i]<e[top].h) {
+      area = e[top].h * (i-e[top].idx+e[top].lwidth);
+      if (area>max) max = area;
+      top--;
+    }
+
+    if (top == -1) {
+      lwidth = i;
+    }
+    else {
+      lwidth = i-e[top].idx-1;
+    }
+
+    top++;
+    e[top].idx = i;
+    e[top].lwidth = lwidth;
+  }
+
+  cout << max << endl;
 }
 
 
@@ -104,5 +128,6 @@ int main() {
   // printArray(a, n);
   cout<<getLargestRecInHistogram1(a, n)<<endl;
   cout<<getLargestRecInHistogram2(a, n)<<endl;
+  cout<<getLargestRecInHistogram(a, n);
   return 1;
 }
