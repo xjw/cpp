@@ -1,8 +1,10 @@
 /**
  *  
- *  http://hi.baidu.com/bellgrade/blog/item/2db68150914f8f858c54308d.html
- *  http://www.mitbbs.com/article_t/JobHunting/31573617.html
- *  http://fayaa.com/tiku/view/83/
+ *  1. http://hi.baidu.com/bellgrade/blog/item/2db68150914f8f858c54308d.html
+ *  2. http://www.mitbbs.com/article_t/JobHunting/31573617.html
+ *  3. http://fayaa.com/tiku/view/83/
+ *
+ *  Solution Stack OR UNION
  *
  */
 
@@ -81,53 +83,71 @@ int getLargestRecInHistogram2(int a[], int n) {
   return ret;
 }
 
-struct element {
-  int h;
-  int lwidth;
-  int idx;
-};
-
+/**
+ * Using stack 
+ * Combin ref1 + ref2 + ref3
+ *
+ * 考虑直方图的每个元素（每根柱子)，以它为高度的最大矩形，宽度可以向左右扩展。
+ * 所以问题就转换为怎么确定左右边界。
+ *
+ * 我们使用了一个栈，从左到右每根柱子依次入栈。
+ * 情形一：如果栈不空并且当前将要入栈的柱子比栈顶的柱子低，则有：
+ *
+ * 1. 栈顶柱子的右边界完全确定，其对应的局部最大矩形面积可求(下面说明了左边界在
+ * 它入栈时已确定)。更新全局最大矩形面积后，栈顶柱子可以依次出栈，直到当前的栈
+ * 顶柱子比当前要入栈的柱子低或者栈变为空栈。
+ *
+ * 2. 连续的出栈操作使得当前的栈顶柱子比当前要入栈的柱子低或者栈变为空栈, 这时
+ * 候，当前要入栈的柱子的左边界也确定,可以入栈。情形二：如果栈为空或者当前要入栈的柱子比栈顶柱子高，
+ * 则无出栈操作，且当前要入栈的柱子的左边界确定。
+ *
+ * 总结：
+ * 1. 每个入栈操作, 如果入栈柱子低于栈顶柱子,则它确定了栈中比要入栈柱子高的那些柱子的右边界,
+ * 可以对它们执行出栈操作。出栈的过程伴随着矩形面积的计算。
+ * 2. 每个入栈操作，不论是否引起出栈操作,我们都可以确定当前要入栈柱子的左边界。
+ * 3. 每次入栈后,栈内所剩柱子一定保持高度单调非递减的顺序。
+ * 4. 可令最后一根柱子高度为-1, 保证必有出栈操作。
+ * 5. 除了高度为-1的哑元柱子, 所有的柱子都入栈一次，出栈一次，复杂度为O(n)
+ * 6. 对高度相同的两根柱子，我们可视后面的柱子比前面的柱子高。
+ */
 const int N = 100;
-int getLargestRecInHistogram(int h[], int n) {
-  element e[N];
-  for (int i=0; i<n; ++i) {
-    e[i].h = h[i];
-  }
-
+int getLargestRecInHistogram(int m[], int n) {
+  int pos[N];
+  int wid[N];
+  int h[N+1];
   int top=-1;
-  int max, area, lwidth;
+
+  for (int i=0; i<n; i++) h[i]=m[i];
+  h[n]=-1; //make sure the last element will pop all stacks
+  
+  int max, area, w;
   max = area = 0;
 
-  for (int i=0; i<n; ++i) {
-    while (top!=-1 && h[i]<e[top].h) {
-      area = e[top].h * (i-e[top].idx+e[top].lwidth);
-      if (area>max) max = area;
+  for (int i=0; i<=n; ++i) {
+    while(top !=-1 && h[i]<h[pos[top]]) {
+      area = (i-pos[top]+wid[top])*h[pos[top]];
+      if (area>max) max=area;
       top--;
     }
-
-    if (top == -1) {
-      lwidth = i;
-    }
-    else {
-      lwidth = i-e[top].idx-1;
-    }
-
+    if (top==-1)  w=i;
+    else  w=i-pos[top]-1;
     top++;
-    e[top].idx = i;
-    e[top].lwidth = lwidth;
+    pos[top] = i;
+    wid[top] = w;
   }
 
-  cout << max << endl;
+  return max;
 }
 
 
 
 int main() {
-  int a[] = {2,1,4,5,1,3,3};
+  // int a[] = {2,1,4,5,1,3,3};
+  int a[] = {2,1,4,5,1,5,5};
   int n = sizeof(a)/sizeof(a[0]);
   // printArray(a, n);
   cout<<getLargestRecInHistogram1(a, n)<<endl;
   cout<<getLargestRecInHistogram2(a, n)<<endl;
-  cout<<getLargestRecInHistogram(a, n);
+  cout<<getLargestRecInHistogram(a, n)<<endl;
   return 1;
 }
