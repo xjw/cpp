@@ -68,8 +68,7 @@ class D : B, C {
 };
 
 int main() {
-  D d;
-  d.t();
-
+  unsigned long long x;
+  cout << sizeof (x) << endl;
   // hash_map<const char *, int, hash<const char *>, eqsch> month;
 }
