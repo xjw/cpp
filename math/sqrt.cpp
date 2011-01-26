@@ -1,45 +1,24 @@
-//http://stackoverflow.com/questions/856228/how-can-i-improve-this-square-root-method
-//
+/**
+ *  http://www.nowamagic.net/algorithm/algorithm_EfficacyOfFunctionSqrt.php
+ *  http://stackoverflow.com/questions/856228/how-can-i-improve-this-square-root-method
+ */
 
 #include <iostream>
 #include <math.h>
 #include <stdlib.h>
+#include <assert.h>
 
 using namespace std;
 
-const double precision = 0.000000001;
-
-//First approach -- Newtow-Raphson
-double newtowCubicRoot(double x) {
-    if(x==0) return 0;
-    double x0=1;
-    double x1=x0*2/3+x/3/x0/x0;
-    while(abs(x1-x0) > precision) {
-       x0=x1;
-       x1=x0*2/3+x/3/x0/x0;
-    }
-    return x1;
-}
-
-//Second approach -- bisection
-double bisecCubicRoot(double x) {
-    if(x<0) return 0-bisecCubicRoot(-x);
-    double a=0, b=x, x0;
-    while(abs(b-a)>precision) {
-       x0=(a+b)/2;
-       double val=x0*x0;
-       if(val>x) a=x0;
-       else b=x0;
-    }
-    return x0;
-}
+// const double precision = 0.000000001;
+const double precision = 0.001;
 
 double binarySqrt(double n) {
-  if (n<0) return -1;
+  assert(n>=0);
 
   double low, high, m;
   if (n>1) {
-    low = 0;
+    low = 1;
     high = n;
   }
   else {
@@ -62,29 +41,74 @@ double binarySqrt(double n) {
   return m;
 }
 
-// guess r by using r = (r+n/r)/2.0
-double sqrt(double n) {
-  double r=n/2;
-  const int max = 100;
+//////////////////////////////////////////////////////////////
+// NEWTON APPROACH
+//
+// TIME COMPLEXITY Analysis for newton method
+// http://en.citizendium.org/wiki/Newton's_method
+
+/**
+ * 1. sqrt
+ * http://www.macs.hw.ac.uk/~pjbk/pathways/cpp1/node124.html 
+ */
+
+// guess r by taking the average of r and n/r
+// which is (r+n/r)/2.0
+double newtonSqrt1(double n) {
+  assert(n>=0);
+  double r=n/2; // the best initial guess is 2^(ceil ( (num of bits of n)/2 )) http://stackoverflow.com/questions/1623375/writing-your-own-square-root-function
   int i=0;
   while(fabs(r*r-n)>=precision) {
-  // for (i=0; i<max; ++i) {
     ++i;
-    double last = r;
     r = (r + n/r)/2;
-    if (fabs(r-last)<=precision) break;
   }
-  cout<<"sqrt ran "<<i<<" times"<<endl;
+  cout<<"newton sqrt1 ran "<<i<<" times"<<endl;
   return r;
+}
+
+double newtonSqrt2(double n) {
+  assert(n>=0);
+  double r, last;
+  r=n;
+  int i=0;
+  do {
+    ++i;
+    last = r;
+    r = (r + n/r)/2;
+  } while (fabs(r-last)>precision);
+  cout<<"newton sqrt2 ran "<<i<<" times"<<endl;
+  return r;
+}
+
+int newton(int n) {
+  int r = n/2;
+  while(fabs(r*r-n)>precision) {
+    double o = r;
+    r = (r + n/r)/2;
+  }
+}
+
+/**
+ * 2. cubic root 
+ */
+double newtowCubicRoot(double x) {
+    if(x==0) return 0;
+    double x0=1;
+    double x1=x0*2/3+x/3/x0/x0;
+    while(abs(x1-x0) > precision) {
+       x0=x1;
+       x1=x0*2/3+x/3/x0/x0;
+    }
+    return x1;
 }
 
 int main() {
   double n;
   cin>>n;
-  cout<<binarySqrt(n)<<endl;
   cout<<sqrt(n)<<endl;
-  // cout<<newtowCubicRoot(n)<<endl;
-  // cout<<bisecCubicRoot(n)<<endl;
+  cout<<binarySqrt(n)<<endl;
+  cout<<newtonSqrt1(n)<<endl;
+  cout<<newtonSqrt2(n)<<endl;
   return 1;
 }
 
