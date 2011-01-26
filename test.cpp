@@ -5,6 +5,7 @@
 #include <queue>
 #include <math.h>
 #include <typeinfo>
+#include <unordered_map>
 // #include <hash_map>
 
 
@@ -68,7 +69,12 @@ class D : B, C {
 };
 
 int main() {
-  unsigned long long x;
-  cout << sizeof (x) << endl;
+  unordered_map<int, int> m;
+  m[3] = 4;
+  cout << m[3] << endl;
+  if (m[4]==NULL) {
+    cout<<5<<endl;
+  }
+
   // hash_map<const char *, int, hash<const char *>, eqsch> month;
 }
