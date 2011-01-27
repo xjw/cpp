@@ -106,9 +106,9 @@ int rotatedBinarySearchBBB(int a[], int n, int x) {
 
 int main() {
   //         0 1 2 3 4 5 6 7
-  int a[] = {6,7,8,9,1,2,3,4,5};
+  // int a[] = {6,7,8,9,1,2,3,4,5};
   // this is the catch for duplicate
-  // int a[] = {2,2,2,2,2,3,2,2};
+  int a[] = {2,2,2,2,2,3,2,2};
 
   // int a[] = {0};
   // int a[] = {0,1};
