@@ -71,7 +71,18 @@ int findP(int a[], int n) {
   int l, r, m;
   l = 0;
   r = n-1;
-  m = 
+  while(a[l]>a[r]) {
+    m = l + (r-l)/2;
+    // cout<<a[l]<<"-"<<a[m]<<"-"<<a[r]<<endl;
+    
+    // if (a[m]>=a[l]) l=m+1;
+    // else r=m;
+   
+    // equivalent to 
+    if (a[m]<a[l]) r=m;
+    else l=m+1;
+  }
+  return a[l];
 }
 
 int rotatedBinarySearchBBB(int a[], int n, int x) {
@@ -95,7 +106,7 @@ int rotatedBinarySearchBBB(int a[], int n, int x) {
 
 int main() {
   //         0 1 2 3 4 5 6 7
-  int a[] = {6,7,8,1,2,3,4,5};
+  int a[] = {6,7,8,9,1,2,3,4,5};
   // this is the catch for duplicate
   // int a[] = {2,2,2,2,2,3,2,2};
 
@@ -105,10 +116,11 @@ int main() {
   // int a[] = {0,1,2};
   // int a[] = {2,0,1};
   cout<< findPivot(a, sizeof(a)/sizeof(a[0])) <<endl;
+  cout<< findP(a, sizeof(a)/sizeof(a[0])) <<endl;
 
-  int x;
-  while(cin>>x && x != 'z') {
-    cout << rotated_binary_search(a, x, 0, sizeof(a)/sizeof(a[0]) -1) << endl;
-    cout << rotatedBinarySearchBBB(a, sizeof(a)/sizeof(a[0]), x) << endl;
-  }
+  // int x;
+  // while(cin>>x && x != 'z') {
+    // cout << rotated_binary_search(a, x, 0, sizeof(a)/sizeof(a[0]) -1) << endl;
+    // cout << rotatedBinarySearchBBB(a, sizeof(a)/sizeof(a[0]), x) << endl;
+  // }
 }
