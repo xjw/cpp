@@ -5,12 +5,11 @@
 #include <queue>
 #include <math.h>
 #include <typeinfo>
-#include <unordered_map>
+// #include <unordered_map>
 // #include <hash_map>
 
 
 using namespace std;
-using namespace __gnu_cxx;
 
 int words_count(char *str) {
   int count = 0;
@@ -69,12 +68,23 @@ class D : B, C {
 };
 
 int main() {
-  unordered_map<int, int> m;
-  m[3] = 4;
-  cout << m[3] << endl;
-  if (m[4]==NULL) {
-    cout<<5<<endl;
+  // unordered_map<int, int> m;
+  // m[3] = 4;
+  // cout << m[3] << endl;
+  // if (m[4]==NULL) {
+    // cout<<5<<endl;
+  // }
+
+  char a[] = "abaddd";
+  int l, r, len;
+  l = 3;
+  r = 4;
+  len = strlen(a);
+  while(l>=0 && r<=len-1 && a[l--]==a[r++]) {
+    cout<<l<<"-"<<r<<endl;
   }
+  cout<<l<<"-"<<r<<endl;
+
 
   // hash_map<const char *, int, hash<const char *>, eqsch> month;
 }
