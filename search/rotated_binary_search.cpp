@@ -55,6 +55,10 @@ int rotatedBinarySearch(int a[], int n, int x) {
   return -1;
 }
 
+/**
+ * better to compare with right 
+ */
+
 int findPivot(int a[], int n) {
   int l, r, m;
   l = 0;
@@ -75,10 +79,12 @@ int findP(int a[], int n) {
     m = l + (r-l)/2;
     // cout<<a[l]<<"-"<<a[m]<<"-"<<a[r]<<endl;
     
+    // v1
     // if (a[m]>=a[l]) l=m+1;
     // else r=m;
    
     // equivalent to 
+    // v2
     if (a[m]<a[l]) r=m;
     else l=m+1;
   }
@@ -103,24 +109,51 @@ int rotatedBinarySearchBBB(int a[], int n, int x) {
   return -1;
 }
 
+/**
+ * better to compare with right, consistent with findPivot
+ * benefit of comparing with right is:
+ *
+ * if m==r, l must == r, because (l+r)/2 = r => l==r => l==r==m;
+ *
+ */
+int rotatedBinarySearchFinal(int a[], int n, int x) {
+  int l, r, m;
+  l = 0;
+  r = n-1;
+  while (r>=l) {
+    m = l + (r-l)/2;
+    if (x == a[m]) return m;
+    if (a[m]<a[r]) {
+      if (a[m]<x && x<=a[r]) l=m+1;
+      else r=m-1;
+    }
+    else {
+      if (a[l]<=x && x<a[m]) r=m-1;
+      else l=m+1;
+    }
+  }
+  return -1;
+}
 
 int main() {
   //         0 1 2 3 4 5 6 7
-  // int a[] = {6,7,8,9,1,2,3,4,5};
+  int a[] = {6,7,8,9,1,2,3,4,5};
   // this is the catch for duplicate
-  int a[] = {2,2,2,2,2,3,2,2};
+  // int a[] = {2,2,2,2,2,3,2,2};
 
   // int a[] = {0};
   // int a[] = {0,1};
   // int a[] = {1,0};
   // int a[] = {0,1,2};
   // int a[] = {2,0,1};
-  cout<< findPivot(a, sizeof(a)/sizeof(a[0])) <<endl;
-  cout<< findP(a, sizeof(a)/sizeof(a[0])) <<endl;
 
-  // int x;
-  // while(cin>>x && x != 'z') {
-    // cout << rotated_binary_search(a, x, 0, sizeof(a)/sizeof(a[0]) -1) << endl;
-    // cout << rotatedBinarySearchBBB(a, sizeof(a)/sizeof(a[0]), x) << endl;
-  // }
+  // cout<< findPivot(a, sizeof(a)/sizeof(a[0])) <<endl;
+  // cout<< findP(a, sizeof(a)/sizeof(a[0])) <<endl;
+
+  int x;
+  while(cin>>x && x != 'z') {
+    cout << rotated_binary_search(a, x, 0, sizeof(a)/sizeof(a[0]) -1) << endl;
+    cout << rotatedBinarySearchBBB(a, sizeof(a)/sizeof(a[0]), x) << endl;
+    cout << rotatedBinarySearchLast(a, sizeof(a)/sizeof(a[0]), x) << endl;
+  }
 }
