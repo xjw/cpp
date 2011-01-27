@@ -67,6 +67,13 @@ int findPivot(int a[], int n) {
   return a[l];
 }
 
+int findP(int a[], int n) {
+  int l, r, m;
+  l = 0;
+  r = n-1;
+  m = 
+}
+
 int rotatedBinarySearchBBB(int a[], int n, int x) {
   int l=0;
   int r=n-1;
