@@ -12,26 +12,26 @@
 using namespace std;
 
 int words_count(char *str) {
-  int count = 0;
-  int len = strlen(str);
-  for (int i=1; i<len; i++) {
-    if ((i==1 || str[i-1] == ' ') && str[i] != ' ') {
-      count++;
+    int count = 0;
+    int len = strlen(str);
+    for (int i=1; i<len; i++) {
+        if ((i==1 || str[i-1] == ' ') && str[i] != ' ') {
+            count++;
+        }
     }
-  }
-  return count;
+    return count;
 }
 
 struct eqstr {
-  bool operator() (string s1, string s2) const {
-    return (s1==s2);
-  }
+    bool operator() (string s1, string s2) const {
+        return (s1==s2);
+    }
 };
 
 struct eqsch {
-  bool operator() (const char * s1, const char * s2) const {
-    return (0==strcmp(s1,s2));
-  }
+    bool operator() (const char * s1, const char * s2) const {
+        return (0==strcmp(s1,s2));
+    }
 };
 
 class A {
@@ -40,18 +40,18 @@ class A {
   A(int d) : i(d) {
   }
   ~A() {
-    // throw 1;
+      // throw 1;
   }
 };
 
 void test() {
-  try {
-    A a(1);
-    throw 2;
-  }
-  catch (int e) {
-    cout<< e << endl;
-  }
+    try {
+        A a(1);
+        throw 2;
+    }
+    catch (int e) {
+        cout<< e << endl;
+    }
 }
 
 class B {
@@ -68,23 +68,16 @@ class D : B, C {
 };
 
 int main() {
-  // unordered_map<int, int> m;
-  // m[3] = 4;
-  // cout << m[3] << endl;
-  // if (m[4]==NULL) {
+    // unordered_map<int, int> m;
+    // m[3] = 4;
+    // cout << m[3] << endl;
+    // if (m[4]==NULL) {
     // cout<<5<<endl;
-  // }
+    // }
 
-  char a[] = "abaddd";
-  int l, r, len;
-  l = 3;
-  r = 4;
-  len = strlen(a);
-  while(l>=0 && r<=len-1 && a[l--]==a[r++]) {
-    cout<<l<<"-"<<r<<endl;
-  }
-  cout<<l<<"-"<<r<<endl;
+    string a = "bb";
+    string c = "ac";
+    cout << (a<c) << endl;
 
-
-  // hash_map<const char *, int, hash<const char *>, eqsch> month;
+    // hash_map<const char *, int, hash<const char *>, eqsch> month;
 }

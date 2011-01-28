@@ -1,3 +1,26 @@
+/**
+ * http://johanjeuring.blogspot.com/2007/08/finding-palindromes.html 
+ *
+ * Solution 1: O(n^2), no optimization
+ * i from 0->len-1, check the largest palindrome starting from i
+ *
+ * Solution 2: best case O(n), optimized
+ * i from 1->len-1, expand left/right from i
+ *
+ * Solution 3: worse than solution, more than O(n^2)
+ *  1. Original string is A
+ *  2. Reverse string is B
+ *  3. Find common strings are C, D, E ....
+ *  4. Find palindromic strings in step 3, suppose C, D.
+ *  5. Find the max length of strings in step 4. Return.
+ *
+ * Solution 4: Suffix Tree/Array
+ *  http://www.allisons.org/ll/AlgDS/Tree/Suffix/
+ *  http://www.math.tau.ac.il/~haimk/seminar02/suffixtrees.ppt
+ *
+ *
+ */
+
 #include <iostream>
 #include <string.h>
 using namespace std;
@@ -12,7 +35,7 @@ bool isAnagram(char *s, int start, int end) {
   return true;
 }
 
-int findLongestPalindrom(char *s) {
+int findLongestPalindrom1(char *s) {
   int n = strlen(s);
   int max = 0;
   int start=0;
@@ -81,7 +104,7 @@ int findLongestPalindrom2(char *s) {
 int main() {
   char s[5000];
   cin>>s;
-  cout<<findLongestPalindrom(s)<<endl;
+  cout<<findLongestPalindrom1(s)<<endl;
   cout<<endl;
   cout<<findLongestPalindrom2(s)<<endl;
   return 0;
