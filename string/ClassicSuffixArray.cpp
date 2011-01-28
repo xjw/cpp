@@ -51,15 +51,16 @@ int isASubstringOfB(string a, string b, int *suffix, int n) {
 int main() {
     cin>>s;
     string s2 = s;
+    s+="$";
     reverse(s2.begin(), s2.end());
-    s = s+"&"+s2;
+    s = s+s2;
     int n = s.size();
     int *suffix = new int[n];
     buildSuffixArray(s, suffix, n);
 
     for (int i=0; i<n; ++i) {
         // cout<<suffix[i]<<endl;
-        cout<<s.substr(suffix[i],n-suffix[i])<<endl;
+        cout<<suffix[i]<<"-"<<s.substr(suffix[i],n-suffix[i])<<endl;
     }
 
     // string a;
