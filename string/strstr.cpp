@@ -49,7 +49,7 @@ char *strstr2(const char *str1, const char *str2) {
       p1++;
       p2++;
     }
-    if (!p2) return cp;
+    if (!*p2) return cp;
     cp++;
   }
   return NULL;
@@ -79,6 +79,19 @@ char *strstr1(char *str1, const char *str2) {
     cout<<"could not find it"<<endl;
     return NULL;
   }
+}
+
+char *strstr(char *hay, char *needle) {
+    // assert(hay && needle);
+    char *p1, *p2, *p3;
+    while(*p1) {
+        p3 = p1;
+        p2 = needle;
+        while(*p2 && *p3 && *p2==*p3) {p2++; p3++;}
+        if (!*p2) return p1;
+        p1++;
+    }
+    return NULL;
 }
 
 int main() {

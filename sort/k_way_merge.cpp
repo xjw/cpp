@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <queue>
+#include <algorithm>
 
 using namespace std;
 
@@ -40,6 +41,44 @@ void k_way_merge(int a[], int n1, int b[], int n2, int c[], int n3, int d[], int
   }
 }
 
+///////////////////////////////////////////////////
+// Solution 2
+// Using make_heap
+//
+typedef pair<int *, int *> P;
+
+struct comp {
+    bool operator() (const P &p1, const P &p2) {
+        return *(p1.first) > *(p2.first);
+    }
+};
+
+void push_back(vector<P> &v, int *p1, int *p2) {
+    v.push_back(make_pair(p1, p2));
+}
+
+void k_way_merge_heap(int a[], int n1, int b[], int n2, int c[], int n3, int d[], int n4, int e[], int n5, int r[], int n6) {
+    vector<P> v;
+    push_back(v, a, a+n1-1);
+    push_back(v, b, b+n2-1);
+    push_back(v, c, c+n3-1);
+    push_back(v, d, d+n4-1);
+    push_back(v, e, e+n5-1);
+    comp C;
+    make_heap(v.begin(), v.end(), C);
+    while (!v.empty()) {
+        pop_heap(v.begin(), v.end(), C);
+        P back = v.back();
+        *r = *(back.first);
+        r++;
+        v.pop_back();
+        if (back.first<back.second) {
+            push_back(v, ++(back.first), back.second);
+            push_heap(v.begin(), v.end(), C);
+        }
+    }
+}
+
 int main() {
   // int a[] = {5,4};
   // int b[] = {4,3};
@@ -55,7 +94,8 @@ int main() {
 
   int n6 = SIZE(a)+SIZE(b)+SIZE(c)+SIZE(d)+SIZE(e);
   int *f = new int [n6];
-  k_way_merge(a, SIZE(a), b, SIZE(b), c, SIZE(c), d, SIZE(d), e, SIZE(e), f, n6);
+  // k_way_merge(a, SIZE(a), b, SIZE(b), c, SIZE(c), d, SIZE(d), e, SIZE(e), f, n6);
+  k_way_merge_heap(a, SIZE(a), b, SIZE(b), c, SIZE(c), d, SIZE(d), e, SIZE(e), f, n6);
 
   for  (int i=0; i<n6; ++i) {
     cout<<f[i]<<endl;
