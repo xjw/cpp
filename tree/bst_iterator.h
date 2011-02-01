@@ -1,4 +1,5 @@
 /**
+ * http://mitbbs.com/article_t1/JobHunting/31779953_0_2.html
  * http://sourcemaking.com/design_patterns/iterator/cpp/1  
  * http://www.uow.edu.au/~nabg/ABC/treeiter.txt
  */
@@ -13,8 +14,11 @@ class TreeIter {
     int depth;
  public:
     TreeIter(BST<T> *bst);
-    void first();
-    void InOrderNext();
+    void inOrderFirst();
+    void inOrderNext();
+    void inOrderNextStack();
+    void preOrderFirst();
+    void preOrderNext();
     bool isDone();
     T current();
 };
@@ -26,7 +30,7 @@ TreeIter<T>::TreeIter(BST<T> *b) {
 }
 
 template <class T>
-void TreeIter<T>::first() {
+void TreeIter<T>::inOrderFirst() {
     BSTNode<T> *root = bst->root;
     while(root!=NULL) {
         tStack[++depth] = root;
@@ -35,7 +39,7 @@ void TreeIter<T>::first() {
 }
 
 template <class T>
-void TreeIter<T>::InOrderNext() {
+void TreeIter<T>::inOrderNext() {
     if (depth<0) return;
     BSTNode<T> *root = tStack[depth--];
     root = root->right;
@@ -45,10 +49,34 @@ void TreeIter<T>::InOrderNext() {
     }
 }
 
+template <class T>
+void TreeIter<T>::init() {
+    BSTNode<T> *root = bst->root;
+    stack< BSTNode<T> *> st;
+    st.push(root);
+    if (root->right) st.push(root->right);
+    if (root->left) st.push(root->left);
+}
+
+template <class T>
+void TreeIter<T>::inOrderNextStack() {
+    if (!p) return;
+    if 
+}
+
+
+template <class T>
+void TreeIter<T>::preOrderFirst() {
+    BSTNode<T> *root = bst->root;
+    tStack[++depth] = root;
+}
+
 template <class T> 
 void TreeIter<T>::preOrderNext() {
     if (depth<0) return;
-    
+    BSTNode<T> *root = tStack[depth--];
+    if (root->right) tStack[++depth] = root->right;
+    if (root->left) tStack[++depth] = root->left;
 }
 
 template <class T>

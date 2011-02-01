@@ -1,10 +1,25 @@
 #include "bst.h"
+#include "bst_iterator.h"
 #include <iostream>
 
 using namespace std;
 
-bool isSubTree(BST<int> *t1, BST<int> *t2) {
+void inOrderUsingIterator(BST<int> *bst) {
+  TreeIter<int> *it = new TreeIter<int>(bst);
+  it->inOrderFirst();
+  while(!it->isDone()) {
+      cout << it->current() << endl;
+      it->inOrderNext();
+  }
+}
 
+void preOrderUsingIterator(BST<int> *bst) {
+  TreeIter<int> *it = new TreeIter<int>(bst);
+  it->preOrderFirst();
+  while(!it->isDone()) {
+      cout << it->current() << endl;
+      it->preOrderNext();
+  }
 }
 
 int main() {
@@ -37,13 +52,10 @@ int main() {
   // bst1->printByLevel();
 
   cout<<endl;
-  TreeIter<int> *it = new TreeIter<int>(bst);
-  it->first();
-
-  while(!it->isDone()) {
-      cout << it->current() << endl;
-      it->next();
-  }
+  preOrderUsingIterator(bst);
+  cout<<endl;
+  inOrderUsingIterator(bst);
+  cout<<endl;
 
   return 0;
 }
