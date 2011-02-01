@@ -20,21 +20,30 @@ int main() {
 
   bst->printByLevel();
 
-  bst->check();
-  bst->delete_item(6);
-  bst->check();
+  // bst->check();
+  // bst->delete_item(6);
+  // bst->check();
 
-  bst->printByLevel();
-  bst->printByLevelQueue();
-  bst->printByLevelQueueNewLine();
-  bst->printByLevelQueueNewLineNoToken();
-  delete bst;
+  // bst->printByLevel();
+  // bst->printByLevelQueue();
+  // bst->printByLevelQueueNewLine();
+  // bst->printByLevelQueueNewLineNoToken();
+  // delete bst;
+
+  // cout<<endl;
+  // int arr[] = {1,2,3,4,5,6};
+  // BST<int> *bst1 = new BST<int>;
+  // bst1->root = bst1->insertFromArray(arr, 0, 5);
+  // bst1->printByLevel();
 
   cout<<endl;
-  int arr[] = {1,2,3,4,5,6};
-  BST<int> *bst1 = new BST<int>;
-  bst1->root = bst1->insertFromArray(arr, 0, 5);
-  bst1->printByLevel();
+  TreeIter<int> *it = new TreeIter<int>(bst);
+  it->first();
+
+  while(!it->isDone()) {
+      cout << it->current() << endl;
+      it->next();
+  }
 
   return 0;
 }
