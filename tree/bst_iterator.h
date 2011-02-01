@@ -4,6 +4,7 @@
  * http://www.uow.edu.au/~nabg/ABC/treeiter.txt
  */
 
+#include <stack>
 const int MAX_DEPTH=100;
 
 template <class T>
@@ -12,21 +13,26 @@ class TreeIter {
     BST<T>* bst;
     BSTNode<T> *tStack[MAX_DEPTH];
     int depth;
+    stack< BSTNode<T> * > st;
  public:
     TreeIter(BST<T> *bst);
     void inOrderFirst();
+    void inOrderFirstStack();
     void inOrderNext();
     void inOrderNextStack();
     void preOrderFirst();
     void preOrderNext();
     bool isDone();
+    bool isDoneStack();
     T current();
+    T currentStack();
 };
 
 template <class T>
 TreeIter<T>::TreeIter(BST<T> *b) {
     bst = b;
     depth = -1;
+    st = stack<BSTNode<T> *>();
 }
 
 template <class T>
@@ -50,20 +56,36 @@ void TreeIter<T>::inOrderNext() {
 }
 
 template <class T>
-void TreeIter<T>::init() {
+void TreeIter<T>::inOrderFirstStack() {
     BSTNode<T> *root = bst->root;
-    stack< BSTNode<T> *> st;
-    st.push(root);
-    if (root->right) st.push(root->right);
-    if (root->left) st.push(root->left);
+    while(root) {
+        st.push(root);
+        root = root->left;
+    }
 }
 
 template <class T>
 void TreeIter<T>::inOrderNextStack() {
-    if (!p) return;
-    if 
+    if (st.empty()) return;
+
+    BSTNode<T> *root = st.top();
+    st.pop();
+    root = root->right;
+    while(root) {
+        st.push(root);
+        root = root->left;
+    }
 }
 
+template <class T>
+bool TreeIter<T>::isDoneStack() {
+    return st.empty();
+}
+
+template <class T>
+T TreeIter<T>::currentStack() {
+    return (st.top())->data;
+}
 
 template <class T>
 void TreeIter<T>::preOrderFirst() {

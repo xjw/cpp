@@ -13,6 +13,15 @@ void inOrderUsingIterator(BST<int> *bst) {
   }
 }
 
+void inOrderUsingIteratorStack(BST<int> *bst) {
+  TreeIter<int> *it = new TreeIter<int>(bst);
+  it->inOrderFirstStack();
+  while(!it->isDoneStack()) {
+      cout << it->currentStack() << endl;
+      it->inOrderNextStack();
+  }
+}
+
 void preOrderUsingIterator(BST<int> *bst) {
   TreeIter<int> *it = new TreeIter<int>(bst);
   it->preOrderFirst();
@@ -55,6 +64,8 @@ int main() {
   preOrderUsingIterator(bst);
   cout<<endl;
   inOrderUsingIterator(bst);
+  cout<<endl;
+  inOrderUsingIteratorStack(bst);
   cout<<endl;
 
   return 0;
