@@ -44,6 +44,14 @@ treeNode *tree::LCA(treeNode *root, treeNode *a, treeNode *b)  {
   return (left != NULL && right != NULL)? root : ((left != NULL)? left : right);
 }
 
+treeNode *tree::LCA(treeNode *root, treeNode *a, treeNode *b)  {
+    if (!root) return NULL;
+    if (root == a || root == b) return root;
+    treeNode *left = LCA(root->left, a, b);
+    treeNode *right = LCA(root->right, a, b);
+    return (left && right)? root : (left? left : right);
+}
+
 int main() {
   tree *tree1 = new tree;
   treeNode *t1 = new treeNode(1);

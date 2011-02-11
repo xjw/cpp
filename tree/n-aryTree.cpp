@@ -21,6 +21,9 @@ treeNode* insert(treeNode *root, T d) {
     return newnode;
 }
 
+void inorder(treeNode *root) {
+}
+
 int main() {
     return 1;
 }
