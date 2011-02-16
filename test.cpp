@@ -75,9 +75,8 @@ int main() {
     // cout<<5<<endl;
     // }
 
-    string a = "bb";
-    string c = "ac";
-    cout << (a<c) << endl;
-
+    char *a[] = {"a","b","c",0};
+    for (int i=0; a[i]; ++i)
+        cout << a[i] << endl;
     // hash_map<const char *, int, hash<const char *>, eqsch> month;
 }
