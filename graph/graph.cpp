@@ -13,5 +13,7 @@ int main() {
   g.BFS();
   cout<<endl;
   g.DFS();
+  cout<<endl;
+  g.DFS_recursive(0);
   return 1;
 }

@@ -24,7 +24,7 @@ class node {
 };
 
 void node::addEdge(int v, int weight) {
-  edges.push_back(edge(v, weight));
+    edges.push_back(edge(v, weight));
 }
 
 class graph {
@@ -36,68 +36,95 @@ class graph {
   void addEdge(int s, int d, int weight);
   void BFS();
   void DFS();
+  void DFS_recursive(int s);
 };
 
 graph::graph(int n) {
-  VNUM = n;
-  v.assign(n, NULL);
+    VNUM = n;
+    v.assign(n, (node *)NULL);
+
+    // equivalent
+    /*
+       v.reserve(n);
+       for (int i=0; i<n; ++i) v[i]=NULL;
+       */
 }
 
 graph::~graph() {
-  for(vector<node *>::iterator it = v.begin(); it != v.end(); ++it) {
-    delete *it;
-  }
+    for(vector<node *>::iterator it = v.begin(); it != v.end(); ++it) {
+        delete *it;
+    }
 }
 
 void graph::addEdge(int s, int d, int weight) {
-  if (v[s]==NULL) {
-    v[s] = new node(s);
-  }
-  if (v[d]==NULL) {
-    v[d] = new node(d);
-  }
-  v[s]->addEdge(d, weight);
-  v[d]->addEdge(s, weight);
+    if (v[s]==NULL) {
+        v[s] = new node(s);
+    }
+    if (v[d]==NULL) {
+        v[d] = new node(d);
+    }
+    v[s]->addEdge(d, weight);
+    v[d]->addEdge(s, weight);
 }
 
 void graph::BFS() {
-  bool *visited = new bool[VNUM];
-  for (int i=0; i<VNUM; ++i) {
-    visited[i] = false;
-  }
-
-  queue<int> q;
-  q.push(0);
-  while(!q.empty()) {
-    int front = q.front();
-    q.pop();
-    visited[front] = true;
-    cout << front << endl;
-    for (vector<edge>::iterator it=v[front]->edges.begin(); it != v[front]->edges.end(); ++it) {
-      int idx = (*it).v;
-      if (!visited[idx]) q.push(idx);
+    bool *visited = new bool[VNUM];
+    for (int i=0; i<VNUM; ++i) {
+        visited[i] = false;
     }
-  }
 
-  delete[] visited;
+    queue<int> q;
+    q.push(0);
+    visited[0] = true;
+    while(!q.empty()) {
+        int front = q.front();
+        q.pop();
+        cout << front << endl;
+        for (vector<edge>::iterator it=v[front]->edges.begin(); it != v[front]->edges.end(); ++it) {
+            int idx = (*it).v;
+            if (!visited[idx]) {
+                q.push(idx);
+                visited[idx] = true;
+            }
+        }
+    }
+
+    delete[] visited;
 }
 
 void graph::DFS() {
-  stack<int> st;
-  st.push(0);
-  bool *visited = new bool[VNUM];
-  for (int i=0; i<VNUM; ++i) visited[i] = false;
+    stack<int> st;
+    bool *visited = new bool[VNUM];
+    for (int i=0; i<VNUM; ++i) visited[i] = false;
 
-  while(!st.empty()) {
-    int top = st.top();
-    cout << top << endl;
-    st.pop();
-    visited[top] = true;
-    for (vector<edge>::iterator it = v[top]->edges.begin(); it!= v[top]->edges.end(); ++it) {
-      int idx = (*it).v;
-      if (!visited[idx]) st.push(idx);
+    st.push(0);
+
+    while(!st.empty()) {
+        int top = st.top();
+        st.pop();
+
+        if (!visited[top]) {
+            cout << top << endl;
+            visited[top] = true;
+            for (vector<edge>::iterator it = v[top]->edges.begin(); 
+                 it!= v[top]->edges.end(); ++it) {
+                int idx = (*it).v;
+                if (!visited[idx]) st.push(idx);
+            }
+        }
     }
-  }
+}
+
+void graph::DFS_recursive(int s) {
+    static bool visited[100];
+    // static bool *visited = new bool[VNUM]; //this is WRONG!!!!!!!!!!!!!!!
+    cout<<s<<endl;
+    visited[s] = true;
+    for (vector<edge>::iterator it = v[s]->edges.begin(); 
+         it != v[s]->edges.end(); ++it) {
+        int idx = (*it).v;
+        if (!visited[idx]) DFS_recursive(idx);
+    }
 }
 
 #endif
