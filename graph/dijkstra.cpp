@@ -16,6 +16,10 @@ void printPath(int *parent, int i, int src, int n) {
 /**
  * pass graph g by reference OR define copy constructor
  * otherwise TWICE DESTRUCTOR ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ *
+ * becoz if pass by value, g get copied, but not deep copy
+ * when g_copy goes out of scope, destructor called, pointer within object
+ * destroyed, after function return, destructor called again, DISASTER!!!
  */
 
 int dijkstra(int src, int dst, int n, graph &g) {
