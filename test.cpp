@@ -68,6 +68,9 @@ class D : B, C {
 };
 
 int main() {
+    cout << (1 xor 2 xor 3 xor 4) << endl;
+    return 1;
+
     // unordered_map<int, int> m;
     // m[3] = 4;
     // cout << m[3] << endl;

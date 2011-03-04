@@ -1,3 +1,31 @@
+/*
+Dijkstra's Algorithm:
+
+	s.dist = 0
+	for (;;)
+	    v = smallest unknown distance vertex
+	    if (v == not_a_vertex) break;
+	    v.known = true;
+
+	    for each w adjacent to v
+		if ( ! w.known )
+		  if ( v.dist + c(v,w) < w.dist)
+		      { decrease (w.dist to  v.dist + c(v,w) 
+			w.path = v;
+		      }
+	}
+
+
+Running time.
+	Depends on data structures. Naive method is O(V^2 + E).
+	Scan vertex list to find min each time, for total of V^2; 
+	Weight updates happen once per edge, so O(E).
+
+	Can be improved to O((V+E) log V) by organizing the distances
+	in a heap. 
+	Selection of v is a deleteMin operation--- V of them;
+	The update is a decreaseKey operation--- E of them
+*/
 #include <iostream>
 #include "graph.h"
 #include "limits.h"
@@ -44,6 +72,7 @@ int dijkstra(int src, int dst, int n, graph &g) {
         for (vector<edge>::iterator it = p->edges.begin();
              it != p->edges.end(); ++it) {
             int v = (*it).v;
+            if (visited[v]) continue; // better have this to save time, not in the algorithm design manual example
             int alt = dist[s]+(*it).w;
             if (dist[v]>alt) {
                 dist[v] = alt;
