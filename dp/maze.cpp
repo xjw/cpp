@@ -33,6 +33,22 @@ bool findPath(char m[M][N], int x, int y) {
   }
 }
 
+/*
+bool DFS(node current, node dst) {
+    if (current == dest) return;
+
+    visited[current] = true;
+
+    foreach node i in current's neighbor {
+        if (!visited[i]) {
+            DFS(i, dst);
+        }
+    }
+
+    visited[current] = false;
+}
+*/
+
 int main() {
   char m[M][N] = {
     '-', '-', '-', '*',
