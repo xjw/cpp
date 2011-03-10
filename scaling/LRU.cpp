@@ -2,6 +2,7 @@
  * http://stackoverflow.com/questions/2057424/lru-implementation-in-production-code 
  * http://gcc.gnu.org/projects/cxx0x.html
  * http://stackoverflow.com/questions/2504178/lru-cache-design
+ * http://www.codeproject.com/KB/recipes/LRUCache.aspx
  */
 #include <iostream>
 #include <list>
