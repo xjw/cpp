@@ -67,8 +67,17 @@ class C {
 class D : B, C {
 };
 
+struct padding {
+    char a;
+    int b;
+    char c;
+};
+
 int main() {
-    cout << (1 xor 2 xor 3 xor 4) << endl;
+    cout << sizeof(padding) << endl;
+    padding p;
+    cout << sizeof(p) << endl;
+
     return 1;
 
     // unordered_map<int, int> m;
