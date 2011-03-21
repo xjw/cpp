@@ -94,6 +94,7 @@ int findLongestPalindromFromIndex(char *s, int l, int r, int len) {
 int findLongestPalindrom2(char *s) {
   if (!s) return 0;
   int global_max, local_max;
+  global_max = local_max = 0;
   for (int i=1, p=0, len=strlen(s); i<=len-1; ++i) {
     local_max = max(findLongestPalindromFromIndex(s, i-1, i+1, len), findLongestPalindromFromIndex(s, i-1, i, len));
     global_max = max(global_max, local_max);
