@@ -6,7 +6,9 @@ class A {
  public:
   int d;
 
-  int* consta() const {
+  static const float c = 1.7;
+
+  const int* consta() const {
     return &d;   // const function requires if return is reference/pointer, const required
   }
 
@@ -20,5 +22,13 @@ int main() {
   A a;
   const A * b = &a;
   a.consta();
-  b->constb(); // can not call a non-const function for a const object
+  cout<< a.c << endl;
+  cout<< A::c << endl;
+
+  A *test = 0;
+  delete test;
+  delete test;
+  
+
+  // b->constb(); // can not call a non-const function for a const object
 }
