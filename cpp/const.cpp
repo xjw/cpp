@@ -18,6 +18,9 @@ class A {
   }
 };
 
+void test_const(int a) {
+}
+
 int main() {
   A a;
   const A * b = &a;
@@ -29,6 +32,8 @@ int main() {
   delete test;
   delete test;
   
+  const int b;
+  test_const(b);
 
   // b->constb(); // can not call a non-const function for a const object
 }
