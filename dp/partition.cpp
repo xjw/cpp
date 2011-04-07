@@ -35,7 +35,7 @@ int partition_binary_search(int a[], int n, int k) {
   int l, r, m, j;
   l = max;
   r = sum;
-  while(l<=r) {
+  while(l<r) {
     cout<<l<<"-"<<r<<endl;
     sum = 0;
     j = 1;
@@ -50,21 +50,78 @@ int partition_binary_search(int a[], int n, int k) {
       }
     }
     cout<<"m-"<<m<<" "<<"j"<<"-"<<j<<endl;
-    if (j==k) return m;
-    else if (j<k) r=m-1;
+    // if (j==k) return m;
+    // else if (j<k) r=m-1;
+    // else l=m+1;
+    if (j<=k) r=m;
     else l=m+1;
   }
+  return l;
   return m;
 }
 
+//Use binary search to do greedy search
+int max_t(int B[], int N)
+{
+	int m = 0;
+	for(int i=0; i<N; i++)
+		m = max(m, B[i]);
+	return m;
+}
+
+int sum_t(int B[], int N)
+{
+	int s = 0;
+	for(int i=0; i<N; i++)
+		s += B[i];
+	return s;
+}
+
+int partition(int B[], int N, int K) {
+    int low = max_t(B, N);
+    int high = sum_t(B, N);    
+
+    int i, mid, painterNeeded, alreadyPainted;
+    while (low < high) {
+        mid = low + (high - low) / 2;
+
+		// calculate k when max = mid
+        i = 0;
+        painterNeeded = 1;
+        alreadyPainted = 0;
+        while (i < N) {
+            if (alreadyPainted + B[i] <= mid) {
+                alreadyPainted += B[i];
+                i++;
+            }
+            else { // exceeds one painter's maximum workload, assign another painter
+                alreadyPainted = 0;
+                painterNeeded++;
+            }
+        }
+
+        if (painterNeeded <= K) {
+            high = mid;
+        }
+        else {
+            low = mid + 1;
+        }
+    }
+
+    return low;
+}
+
 int main() {
+  int a[] = {1,2,3};
+  int k = 2;
   // int a[] = {100, 400, 300, 100, 500, 101, 400};
   // int k = 5;
   
-  int a[] = {9, 8, 7, 9, 8, 1, 8, 4, 6, 8, 8, 6, 5};
-  int k = 2;
+  // int a[] = {9, 8, 7, 9, 8, 1, 8, 4, 6, 8, 8, 6, 5};
+  // int k = 2;
 
   cout<<partition_binary_search(a, sizeof(a)/sizeof(a[0]), k)<<endl;
+  cout<<partition(a, sizeof(a)/sizeof(a[0]), k)<<endl;
 
   return 1;
 }
