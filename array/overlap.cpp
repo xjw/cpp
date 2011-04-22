@@ -14,6 +14,7 @@ struct comp {
 } mycomp;
 
 void merge_overlap(V v) {
+    sort(v.begin(), v.end(), mycomp);
     int s1, e1, c;
     int s2, e2;
     V v2;
@@ -48,9 +49,7 @@ int main() {
     v.push_back(make_pair(8,10));
     v.push_back(make_pair(2,6));
     v.push_back(make_pair(15,18));
-    sort(v.begin(), v.end(), mycomp);
 
     merge_overlap(v);
-    
     return 1;
 }

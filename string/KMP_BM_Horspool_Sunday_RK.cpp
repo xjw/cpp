@@ -21,7 +21,7 @@ char * boyer_moore_horspool(char *s1, char *s2) {
   }
   for (int i=0; i<l2; ++i) {
     steps[s2[i]] = l2-i-1;
-    cout<<s2[i]<<l2-i-1<<endl;
+    // cout<<s2[i]<<l2-i-1<<endl;
   }
 
   int p1, p2;
@@ -35,6 +35,11 @@ char * boyer_moore_horspool(char *s1, char *s2) {
   return NULL;
 }
 
+/**
+ * Refer to
+ * sunday算法研究——超越kmp的字符串匹配
+ * http://blog.csdn.net/hairetz/archive/2009/10/26/4729397.aspx 
+ */
 char *sunday(char *s1, char *s2) {
   if (!s1 || !s2) return NULL;
   int l1, l2;

@@ -40,8 +40,7 @@ unsigned int reverseBits001ForInt(unsigned int n) {
     r |= n&1;
     s--;
   }
-  r<<=s;
-  return r;
+  return r<<s;
 }
 
 /**

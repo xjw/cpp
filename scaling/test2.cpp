@@ -3,6 +3,7 @@
 #include <iostream>
 #include <list>
 #include <hash_map>
+#include <stdio.h>
 using namespace std;
 using namespace __gnu_cxx;
 #define N 3
@@ -33,11 +34,19 @@ public:
 			CacheEntry* e = *(chash.find(kstr)->second);
 			cache.erase(chash.find(kstr)->second);
 
-			CacheEntry* test = new CacheEntry;
-            test->key = test->value = "test";
+            cout << "iterator value " << *(chash.find(kstr)->second) << endl; 
+            cout << (*(chash.find(kstr)->second))->value << endl;
+
+            CacheEntry* test = new CacheEntry; // new code line 1
+            test->key = test->value = "test"; // new code line 2 did nothing
 
 			cache.push_front(e);
-            cout << ((cache.begin() == chash.find(kstr)->second)? "yes" : "no");
+
+            list<
+            printf("%ld\n", cache.begin());
+
+            cout << ((cache.begin() == chash.find(kstr)->second)? "yes" : "no") << endl; //new code line 3
+
 			return e->value;
 		}
 		return 0;
@@ -72,32 +81,9 @@ int main(){
 	cout << "Get " << cache.get(string("1")) << endl;
     cache.print();
     cout << endl;
+
 	cout << "Get " << cache.get(string("1")) << endl;
     cache.print();
-    return 1;
 
-	cout << "Get " << cache.get(string("1")) << endl;
-	cache.print();
-    cout<< endl;
-	cache.put(string("2"), string("b"));
-	cache.print();
-    cout<< endl;
-	cout << "Get " << cache.get(string("1")) << endl;
-	cache.print();
-    cout<< endl;
     return 1;
-	cout << "Get " << cache.get(string("3")) << endl;
-	cache.put(string("4"), string("d"));
-  // cout << "Get " << cache.get(string("3")) << endl;
-	cache.print();
-    return 1;
-
-	cache.put(string("4"), string("d"));
-	cout << "Get " << cache.get(string("1")) << endl;
-    return 1;
-	cache.print();
-	cout << "Get " << cache.get(string("3")) << endl;
-	cache.print();
-    // if(cache.get(string("5")).compare(NULL)==0)
-        // cout << "Get 5 failed\n";
 }

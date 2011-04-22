@@ -12,6 +12,19 @@ using namespace std;
 
 // const double precision = 0.000000001;
 const double precision = 0.001;
+#define SMALL 0.0001
+
+double squareroot(double n) {
+    if(n==1 || n==0) return n;
+    float x = 1;
+    while(1) {
+        float b = n/x;
+        if( abs(x-b) < SMALL )
+            return x;
+        x = (x + b)/2;
+    }
+    return x;
+}
 
 double binarySqrt(double n) {
   assert(n>=0);
@@ -89,6 +102,21 @@ int newton(int n) {
 }
 
 /**
+ * sqrt 
+ */
+double newtowSqureRoot(double x) {
+    assert(x>0);
+    if (x==0) return 0;
+    double x0 = 1;
+    double x1 = x0 - (x0*x0 - x)/(2*x0);
+    while(abs(x1-x0)>precision) {
+        x0 = x1;
+        x1 = x0 - (x0*x0 - x)/(2*x0);
+    }
+    return x0;
+}
+
+/**
  * 2. cubic root 
  */
 double newtowCubicRoot(double x) {
@@ -102,13 +130,32 @@ double newtowCubicRoot(double x) {
     return x1;
 }
 
+////////////////////////////////////////
+/**
+ * this is the sqrt you want to use
+ * this is pretty cool, handle all cases
+ * N>=1 or 0<N<1
+ */
+double sqrt_final(double n) {
+    assert(n>=0);
+    double x = 1;
+    while(true) {
+        double y = n/x;
+        if (fabs(x-y)<precision) return x;
+        x = (x + y)/2;
+    }
+}
+
 int main() {
   double n;
   cin>>n;
-  cout<<sqrt(n)<<endl;
-  cout<<binarySqrt(n)<<endl;
-  cout<<newtonSqrt1(n)<<endl;
-  cout<<newtonSqrt2(n)<<endl;
+  cout<<sqrt_final(n)<<endl;
+  // cout<<binarySqrt(n)<<endl;
+  // cout<<newtonSqrt1(n)<<endl;
+  // cout<<newtonSqrt2(n)<<endl;
+  // cout<<squareroot(n)<<endl;
+  // cout<<newtowSqureRoot(n)<<endl;
+  // cout<<newtowCubicRoot(n)<<endl;
   return 1;
 }
 

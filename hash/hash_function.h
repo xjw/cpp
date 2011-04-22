@@ -1,6 +1,10 @@
 /**
  * http://eternallyconfuzzled.com/tuts/algorithms/jsw_tut_hashing.aspx
  * http://en.literateprograms.org/Hash_function_comparison_(C,_sh)
+ *
+ * JAVA HASHCODE
+ * http://stackoverflow.com/questions/3613102/why-use-a-prime-number-in-hashcode
+ * http://stackoverflow.com/questions/299304/why-does-javas-hashcode-in-string-use-31-as-a-multiplier
  */
 
 #include <iostream>

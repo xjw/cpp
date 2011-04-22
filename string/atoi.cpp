@@ -42,8 +42,7 @@ int atoi_2(char *str) {
   while(*str && *str>='0' && *str<='9') {
     int newnum = 10*r + *str - '0';
     if (r != (newnum-*str+'0')/10) r=INT_MAX;;
-    r = newnum;
-    // r = r*10 + *str - '0';
+    else r = newnum;
     str++;
   }
   return neg? -r : r;

@@ -10,11 +10,6 @@
 #include <string>
 #include <hash_map>
 #include <string.h>
-/**
- *
- * compile use g++ -std=c++0x
- *
- */
 
 using namespace std;
 using namespace __gnu_cxx;

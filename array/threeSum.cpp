@@ -26,6 +26,29 @@ void findThreeSum(int a[],int n,int sum) {
   }
 }
 
+bool sum3(int a[], int n, int sum) {
+    sort(a, a+n);
+
+    bool ret = false;
+    for (int i=0; i<n; i++) {
+        int k = i+1;
+        int j = n-1;
+        while(k<j) {
+            int r = sum-a[i]-a[j]-a[k];
+            if (r==0) {
+                ret = false;
+                cout << a[i] << "+" << a[k] << "+" << a[j] << "=" << sum << endl;
+                k++; 
+                j--;
+            }
+            else if (r>0) k++;
+            else j--;
+        }
+    }
+
+    return ret;
+}
+
 int main() {
   // int a[] = {1,2,3,4,5};
   int a[] = {2,1,3,5,4};

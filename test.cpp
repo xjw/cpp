@@ -82,11 +82,11 @@ class BB : public AA {
 };
 
 int main() {
-    char a[256];
-    unsigned char c;
-    for(c=0; c<256; c++){
-        a[c] = '0';
+    int a[10];
+    for (int i=0; i<9; ++i) {
+        cout << a[i] << endl;
     }
+
     return 1;
 
     // unordered_map<int, int> m;

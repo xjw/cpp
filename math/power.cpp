@@ -113,6 +113,22 @@ int power44(int x, unsigned n) {
   return result;
 }
 
+int pow_i(int x, int y) {
+    int r = 1;
+    while(y) {
+        if (y&1) r *=x;
+        x *= x;
+        y >>= 1;
+    }
+    return r;
+}
+
+int pow_r(int x, int y) {
+    if (y==0) return 1;
+    int m = pow(x, y/2);
+    return (y&1)? m*m*x : m*m;
+}
+
 int main() {
   double x;
   int y;
