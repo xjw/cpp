@@ -10,7 +10,7 @@
  */
 
 #include <iostream>
-#include <algorithm>
+// #include <algorithm>
 #include <vector>
 
 using namespace std;
@@ -59,6 +59,34 @@ int my_upper_bound(int a[], int n, int x) {
   return l;
 }
 
+/////////////
+// from most recent
+
+int lower_bound(int a[], int n, int x) {
+    int l, u, m;
+    l = 0;
+    u = n-1;
+    while(l<u) {
+        m = l + (u-l)/2;
+        if (a[m]<x) l = m+1;
+        else u = m;
+    }
+    return l;
+}
+
+int upper_bound(int a[], int n, int x) {
+    int l, u, m;
+    l = 0;
+    u = n-1;
+    while(l<u) {
+        m = l + (u-l)/2;
+        if (a[m]>x) u=m;
+        else l=m+1;
+    }
+    return l;
+}
+
+
 int main() {
   int a[] = {1,1,2,2,2,3,3,3,3,3,3, 3, 4, 4, 5, 6, 6};
   // int a[] = {1, 1, 3};
@@ -70,9 +98,11 @@ int main() {
   vector<int> v(a, a+n);
   int x;
   while(cin>>x && x!= -1) {
-    cout<<my_lower_bound(a, n, x)<<endl;
-    cout<<my_lower_bound_2(a, n, x)<<endl;
-    cout<<int(lower_bound(v.begin(), v.end(), x) - v.begin())<<endl;
+    // cout<<my_lower_bound(a, n, x)<<endl;
+    // cout<<my_lower_bound_2(a, n, x)<<endl;
+    cout<<lower_bound(a, n, x)<<endl;
+    cout<<upper_bound(a, n, x)<<endl;
+    // cout<<int(lower_bound(v.begin(), v.end(), x) - v.begin())<<endl;
     // cout<<my_upper_bound(a, n, x)<<endl;
     // cout<<int(upper_bound(v.begin(), v.end(), x) - v.begin())<<endl;
     cout<<endl;
