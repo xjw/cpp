@@ -30,6 +30,21 @@ int beat_stock_market(int p[], int n) {
   return best_deal;
 }
 
+int simple(int p[], int n) {
+  int buy, sell, min, maxDiff;
+  buy = sell = min = maxDiff = 0;
+  for (int i=0; i<n; ++i) {
+    if (p[i]<p[min]) min = i;
+    int diff = p[i] - p[min];
+    if (diff > maxDiff) {
+      maxDiff = diff;
+      buy = min;
+      sell = i;
+    }
+  }
+}
+
+
 int main() {
   // int price[] = {2,3,5,4,1,3,2,3};
   int price[] = {4,3,2,1};

@@ -81,7 +81,12 @@ class BB : public AA {
     void A();
 };
 
+struct T {
+};
+
 int main() {
+    T t;
+
     int a[10];
     for (int i=0; i<9; ++i) {
         cout << a[i] << endl;
