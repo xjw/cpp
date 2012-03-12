@@ -28,11 +28,12 @@ using namespace std;
 double findMedian(int A[], int B[], int l, int r, int m, int n) {
     // if l>r, it means median is not in A, search in B instead
     if (l>r) return findMedian(B,A,max(0,(m+n)/2-m),min(n,(m+n)/2),n,m);
-    // binary search i; but also l needs to be in [(m-n)/2, (m+n)/2]
+    // binary search i; but also i needs to be in [(m-n)/2, (m+n)/2], reason see above comments
     int i = max( (m-n)/2, min( (m+n)/2, l + (r-l)/2));
-    // because of the statement above, j will be in [-1,n)
+    // because of the range of i, j will be in [-1,n)
     int j = (m+n)/2 - i - 1; 
 
+    // set edge case for Bj and Bj+1
     int Bj1 = (j>=n-1)? INT_MAX : B[j+1];
     int Bj  = (j==-1) ? INT_MIN : B[j];
 
