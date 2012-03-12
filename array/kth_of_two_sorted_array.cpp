@@ -10,7 +10,7 @@ bool find_kth_of_two_sorted_array(int a[], int m, int b[], int n, int k) {
     assert(m>=0 && n>=0 && k>0 && (m+n>=k));
     m = min(m, k);
     n = min(n, k);
-    int i = (k/2>m)? m : k/2;
+    int i = min(m,k/2);
     int j = (k-1)-i;
     if (j>n) {
         j = n;
@@ -44,8 +44,10 @@ bool find_kth_of_two_sorted_array(int a[], int m, int b[], int n, int k) {
 int main() {
     //int a[] = {2,3,4};
     //int b[] = {1,2,6,7,8};
-    int b[] = {2,3,4};
-    int a[] = {1,2,6,7,8};
+    //int b[] = {2,3,4};
+    //int a[] = {1,2,6,7,8};
+    int a[] = {6,7,8};
+    int b[] = {1,2,3};
     int k;
     while (cin >> k && k != 'z') {
         if (!find_kth_of_two_sorted_array(a,sizeof(a)/sizeof(int),b,sizeof(b)/sizeof(int),k)) {

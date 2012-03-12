@@ -1,49 +1,51 @@
-/**
- * http://geeksforgeeks.org/?p=2105 
- */
-
 #include <iostream>
 
 using namespace std;
 
-/**
- * O(n) merge method 
+/*
+ * http://www.leetcode.com/onlinejudge
+ *
+ * Inspired by this two, but they have incorrect code
+ * http://www.leetcode.com/2011/03/median-of-two-sorted-arrays.html#comment-1053
+ * http://ideone.com/8VgdW
+ *
+ * http://www2.myoops.org/course_material/mit/NR/rdonlyres/Electrical-Engineering-and-Computer-Science/6-046JFall-2005/30C68118-E436-4FE3-8C79-6BAFBB07D935/0/ps9sol.pdf
  */
-int find_median_merge(int a[], int m, int b[], int n) {
-    int m1, m2, i, j, count, median_loc;
-    i = j = count =  0;
-    median_loc = (m + n)/2;
-    int *a1 = a;
-    int *a2 = b;
-    while(count<=median_loc) {
-        if (i==m) {
-            a1 = b;
-            i = 0;
-        } 
-        if (j==n) {
-            a2 = a;
-            j = 0;
-        }
-        if (a1[i]<a2[j]) {
-            i++;
-            m1 = m2;
-            m2 = a1[i];
-        }
-        else {
-            j++;
-            m1 = m2;
-            m2 = a2[j];
-        }
-        count++;
-    }
-    return (m1+m2)/2;
+double findMedian(int A[], int B[], int l, int r, int m, int n) {
+    if (l>r) return findMedian(B,A,max(0,(m+n)/2-m),min(n,(m+n)/2),n,m);
+    int i = max( (m-n)/2, min( (m+n)/2, l + (r-l)/2));
+    int j = (m+n)/2 - i - 1;
+
+    int Bj1 = (j>=n-1)? INT_MAX : B[j+1];
+    int Bj  = (j==-1) ? INT_MIN : B[j];
+
+    if (A[i]<Bj)  return findMedian(A,B,i+1,r,m,n);
+    if (A[i]>Bj1) return findMedian(A,B,l,i-1,m,n);
+
+    if ((m+n)%2 == 1) return (double)A[i];
+    if (i>0) return (A[i] + max(A[i-1],Bj))/2.0;
+    return (A[i]+Bj)/2.0;
 }
 
+
 int main() {
-    int a[] = {1, 12, 15, 26, 38};
-    int b[] = {2, 13, 17, 30, 45};
-    int m = sizoef(a) / sizeof(a[0]);
-    int m = sizoef(b) / sizeof(b[0]);
-    cout << find_median_merge(a, b) << endl;
+    //int a[] = {1,2,3,4,5,6};
+    //int b[] = {7};
+    //int a[] = {1};
+    //int b[] = {2};
+    //int a[] = {1,2,3};
+    //int b[] = {4};
+    //int a[] = {3,4};
+    //int b[] = {};
+    //int a[] = {3,4,5,6,7};
+    //int b[] = {1,2};
+    //int a[] = {1,4,5,6,7};
+    //int b[] = {2,3};
+    int a[] = {2,3,5,6,7};
+    int b[] = {1,4};
+    int m = sizeof(a) / sizeof(a[0]);
+    int n = sizeof(b) / sizeof(b[0]);
+    cout << findMedian(a, b, 0, m-1, m, n) << endl;
     return 1;
 }
+    
