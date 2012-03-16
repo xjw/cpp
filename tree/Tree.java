@@ -3,8 +3,18 @@ import java.util.*;
 public class Tree<T> {
     TreeNode<T> root;
 
-    public void setRoot(TreeNode<T> r) {
+    public Tree(TreeNode<T> r) {
         root = r;
+    }
+
+    public String getInorder(TreeNode<T> node) {
+        if (node == null) return "";
+        return getInorder(node.left) + node.data + getInorder(node.right);
+    }
+
+    public String getPreOrder(TreeNode<T> node) {
+        if (node == null) return "";
+        return node.data + getPreOrder(node.left) + getInorder(node.right);
     }
 
     /*
@@ -19,7 +29,7 @@ public class Tree<T> {
         while(!q.isEmpty()) {
             TreeNode<T> node = q.poll();
             count_this_level--;
-            System.out.println(node.data);
+            System.out.print(node.data+" ");
             if (node.left != null) {
                 q.offer(node.left);
                 count_next_level++;
@@ -36,28 +46,25 @@ public class Tree<T> {
         }
     }
 
-    public void serialize(TreeNode<T> root) {
+    public boolean equals(Tree<T> t2) {
+        return equalNode(this.root, t2.root);
+    }
 
+    public boolean equalNode(TreeNode<T> n1, TreeNode<T> n2) {
+        return (n1 == null && n2 == null) || 
+            ((n1 != null && n2 != null) 
+            && (n1.data == n2.data)
+            && equalNode(n1.left, n1.left) 
+            && equalNode(n1.right, n2.right));
     }
 
 
     public static void main(String[] args) {
-        Tree<Integer> tree = new Tree<Integer>();
-        TreeNode<Integer> n1 = new TreeNode<Integer>(4);
-        TreeNode<Integer> n2 = new TreeNode<Integer>(2);
-        TreeNode<Integer> n3 = new TreeNode<Integer>(6);
-        TreeNode<Integer> n4 = new TreeNode<Integer>(1);
-        TreeNode<Integer> n5 = new TreeNode<Integer>(3);
-        TreeNode<Integer> n6 = new TreeNode<Integer>(5);
-        tree.setRoot(n1);
+        Tree<Integer> tree1 = TreeUtils.buildAIntegerTree();
+        Tree<Integer> tree2 = TreeUtils.buildAIntegerTreeSmall();
 
-        n1.left = n2;
-        n1.right = n3;
-        n2.left = n4;
-        n2.right = n5;
-        n
-
-        tree.printByLevel();
+        tree1.printByLevel();
+        tree2.printByLevel();
+        assert !tree1.equals(tree2);
     }
-
 }
