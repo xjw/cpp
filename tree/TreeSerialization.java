@@ -44,7 +44,8 @@ interface SerializationInterface {
  */
 class SerializationPreOrder implements SerializationInterface {
     private TreeNode<Integer> root;
-    private char NULL_CHILDREN = '/';
+    private String NULL_CHILDREN = "/";
+    private String SEPARATOR = " ";
 
     SerializationPreOrder(TreeNode<Integer> node) {
         root = node;
@@ -55,8 +56,8 @@ class SerializationPreOrder implements SerializationInterface {
     }
 
     public String serialize(TreeNode<Integer> node) {
-        return (node == null) ? Character.toString(NULL_CHILDREN) :
-            node.data + serialize(node.left) + serialize(node.right);
+        return (node == null) ? NULL_CHILDREN + SEPARATOR :
+            node.data + SEPARATOR + serialize(node.left) + serialize(node.right);
     }
 
     public TreeNode<Integer> deserialize() {
@@ -64,22 +65,19 @@ class SerializationPreOrder implements SerializationInterface {
     }
 
     public TreeNode<Integer> deserialize(String s) {
-        Queue<Character> q = new LinkedList<Character>();
-        for (int i=0; i<s.length(); i++) {
-            q.offer(s.charAt(i));
-        }
+        Queue<String> q = new LinkedList<String>(Arrays.asList(s.split("\\s")));
         return deserialize(q);
     }
 
-    public TreeNode<Integer> deserialize(Queue<Character> q) {
+    public TreeNode<Integer> deserialize(Queue<String> q) {
         if (q.isEmpty()) {
             return null;
         }
-        char c = q.poll();
-        if (c == NULL_CHILDREN) {
+        String s = q.poll();
+        if (s.equals(NULL_CHILDREN)) {
             return null;
         }
-        TreeNode<Integer> node = new TreeNode<Integer>(Character.getNumericValue(c));
+        TreeNode<Integer> node = new TreeNode<Integer>(Integer.parseInt(s));
         node.left = deserialize(q);
         node.right = deserialize(q);
         return node;
