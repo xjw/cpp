@@ -59,35 +59,6 @@ void serialize1(const BST<int> &bst) {
 }
 
 //////////////////////////////////////////////////
-// solution 2: 
-// FOR BST: store pre-order
-
-string addInt2String(string s, int n) {
-  stringstream os;
-  os << n;
-  return s + os.str();
-}
-
-void preOrder(BSTNode<int> *root, string &s) {
-  if (root==NULL) {
-    s += EMP;
-    return;
-  }
-  s = addInt2String(s, root->data);
-  preOrder(root->left, s);
-  preOrder(root->right, s);
-}
-
-void serialize2(const BST<int> &bst) {
-  string s;
-  preOrder(bst.root, s);
-  cout<<s<<endl;
-}
-
-void deserialize2(string s) {
-}
-
-//////////////////////////////////////////////////
 // http://en.wikipedia.org/wiki/Binary_tree
 //
 void succient_encoding(const BSTNode<int> *root, queue<bool> &v, queue<int> &d) {
