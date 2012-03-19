@@ -137,13 +137,13 @@ int rotatedBinarySearchFinal(int a[], int n, int x) {
 
 int main() {
   //         0 1 2 3 4 5 6 7
-  int a[] = {6,7,8,9,1,2,3,4,5};
+  //int a[] = {6,7,8,9,1,2,3,4,5};
   // this is the catch for duplicate
-  // int a[] = {2,2,2,2,2,3,2,2};
+  int a[] = {2,2,2,2,2,3,2,2};
 
   // int a[] = {0};
   // int a[] = {0,1};
-  // int a[] = {1,0};
+  //int a[] = {1,0};
   // int a[] = {0,1,2};
   // int a[] = {2,0,1};
 
@@ -154,6 +154,6 @@ int main() {
   while(cin>>x && x != 'z') {
     cout << rotated_binary_search(a, x, 0, sizeof(a)/sizeof(a[0]) -1) << endl;
     cout << rotatedBinarySearchBBB(a, sizeof(a)/sizeof(a[0]), x) << endl;
-    cout << rotatedBinarySearchLast(a, sizeof(a)/sizeof(a[0]), x) << endl;
+    cout << rotatedBinarySearchFinal(a, sizeof(a)/sizeof(a[0]), x) << endl;
   }
 }
