@@ -45,6 +45,34 @@ public class SumProblems {
         return new ArrayList<ArrayList<Integer>>(set);
     }
 
+    public int threeSumClosest(int[] num, int target) {
+        int end = num.length - 1;
+        int min = Integer.MAX_VALUE;
+        int val = 0;
+        Arrays.sort(num);
+        for (int m=1; m<end; m++) {
+            int i = 0;
+            int j = end;
+            while(i<m && m<j) {
+                int sum = num[i]+num[m]+num[j];
+                int diff = Math.abs(sum-target);
+                if (diff == 0) {
+                    return sum;
+                }
+                if (diff < min) {
+                    min = diff;
+                    val = sum;
+                }
+                if (sum>target) {
+                    j--;
+                } else {
+                    i++;
+                }
+            }
+        }
+        return val;
+    }
+
     class Pair {
         int x;
         int y;
@@ -108,5 +136,6 @@ public class SumProblems {
         SumProblems s = new SumProblems();
         System.out.println(s.getThreeSum(new int[]{-1,0,1,2,-1,-4}));
         System.out.println(s.fourSum(new int[]{0,0,0,0}, 0));
+        System.out.println(s.threeSumClosest(new int[]{1,1,1,0}, 100));
     }
 }
