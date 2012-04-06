@@ -1,5 +1,8 @@
 import java.util.*;
-
+/*
+ * The maximal rectangle problem
+ * http://drdobbs.com/database/184410529
+ */
 public class Histogram {
     /*
      * find the highest h 
@@ -117,14 +120,38 @@ public class Histogram {
     }
 
 
+    class E {
+        int i;
+        int l;
+        E (int v) {i=v; l=0;}
+    }
+
+    public int getMaxArea(int[] h) {
+        Stack<E> s = new Stack<E>();
+        int max;
+        for (int i=0; i<h.length; i++) {
+            E top = s.peek();
+            if (h[i] >= h[top.i]) {
+                s.push(new E(i));
+            } else {
+                while(!s.empty() && h[i] < h[top.i]) {
+                    max = Math.max(h[i] * (i-top.i+top.l));
+                }
+                E e = new E(i);
+                e.l = s.empty()? i : i - s.peek().i; 
+            }
+        }
+    }
+
+
     public int getMaxAreaSuccint(int[] hist) {
         int[] h = Arrays.copyOf(hist, hist.length+1);
         int len = h.length;
         int[] left = new int[len];
         int[] postack = new int[len];
-        int top = -1;
         int area = 0;
-        h[len-1] = -1;
+        int top = -1; // top stack pointer
+        h[len-1] = -1; // to make sure pop out stack at end
         for (int i=0; i<len; i++) {
             while(top != -1 && h[i] < h[postack[top]]) {
                 // h * (right + left)
