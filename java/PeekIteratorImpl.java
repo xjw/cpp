@@ -2,7 +2,7 @@ import java.util.Iterator;
 
 public class PeekIteratorImpl<E> implements PeekIterator<E> {
     private final Iterator<? extends E> it;
-    boolean hasPeeked = false;
+    boolean hasPeeked = false; // this boolean is must have
     E peekedElement;
 
     public PeekIteratorImpl(Iterator<E> iterator) {
