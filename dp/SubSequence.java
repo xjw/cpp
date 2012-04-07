@@ -67,8 +67,23 @@ public class SubSequence {
         return c[list.get(list.size()-1)];
     }
 
-    public void getLongestCommonSubSequence(int[] a) {
 
+    /*
+     * DP Caching
+     */
+    public int getLongestCommonSubSequence(String s1, String s2) {
+        int m = s1.length();
+        int n = s2.length();
+        int[][] c = new int[m+1][n+1];
+        for (int i=1; i<=m; i++) {
+            for (int j=1; j<=n; j++) {
+                c[i][j] = Math.max(c[i-1][j], c[i][j-1]);
+                if (s1.charAt(i-1) == s2.charAt(j-1)) {
+                    c[i][j] = c[i][j]+1;
+                }
+            }
+        }
+        return c[m][n];
     }
 
     public void testLongestIncreasingSubSequence() {
@@ -85,8 +100,14 @@ public class SubSequence {
         }
     }
 
+    public void testLongestCommonSubSequence() {
+        System.out.println(getLongestCommonSubSequence("acbe", "cfdbfe"));
+    }
+
     public static void main(String[] args) {
-        new SubSequence().testLongestIncreasingSubSequence();
+        SubSequence s = new SubSequence();
+        s.testLongestIncreasingSubSequence();
+        s.testLongestCommonSubSequence();
     }
 
 }
