@@ -79,7 +79,7 @@ void randPermutation(string s) {
 
 
 int main() {
-  string s = "113";
+  string s = "133";
   // randPermutation(s);
   printPermutation(s,0,s.size());
   // vector<string> v = getPermutation(s);
