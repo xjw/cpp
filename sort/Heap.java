@@ -1,9 +1,9 @@
 import java.util.*;
 
 public class Heap {
-    private int p; //current pointer
-    private int SIZE;
-    private int[] data;
+    private int p; // current pointer
+    private int SIZE; // total size
+    private int[] data; // data array
 
     public Heap(int size) {
         if (size<=0) throw new IllegalArgumentException();
