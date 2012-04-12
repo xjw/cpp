@@ -21,7 +21,10 @@ public class Partition {
         return j;
     }
 
-    public static int partition(int[] a, int l, int r) {
+    /*
+     * this is wrong for example int[] a = {1,6,5,4,3,7};
+     */
+    public static int partitionWrong(int[] a, int l, int r) {
         if (l>=r) return l;
 
         int pivot = a[r];
@@ -31,6 +34,22 @@ public class Partition {
         while (true) {
             while (a[i]<pivot && i<j) i++;
             while (a[j]>pivot && i<j) j--;
+            if (i>=j) break;
+            swap(a, i, j);
+        }
+        swap(a, i, r);
+        return i;
+    }
+
+    public static int partition(int[] a, int l, int r) {
+        if (l>=r) return l;
+        int i, j;
+        int p = a[r];
+        i = l;
+        j = r-1;
+        while (true) {
+            while (a[i]<p) i++; 
+            while (a[j]>p && j>i) j--;
             if (i>=j) break;
             swap(a, i, j);
         }

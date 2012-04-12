@@ -1,5 +1,13 @@
 import java.util.*;
 
+/*
+ * http://www.nowamagic.net/algorithm/algorithm_EfficacyOfFunctionSqrt.php
+ * Binary search
+ * Newton
+ *
+ * And the best algorithm ever is source code for Quake by John Carmack
+ *
+ */
 public class Sqrt {
     // PART I: Calculate an integer square root
 
