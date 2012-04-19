@@ -22,6 +22,17 @@ public class Permutate {
         }
     }
 
+    public void printPermutationNoDup(String s, int start) {
+        if (start == s.length()-1) {
+            System.out.println(s);
+            return;
+        }
+        for (int i=start; i<s.length(); i++) {
+            if (i != start && s.charAt(i) == s.charAt(i-1)) continue;
+            printPermutationNoDup(swap(s,start,i), start+1);
+        }
+    }
+
     // --- next permutation
 
     public void swap(char[] c, int i, int j) {
