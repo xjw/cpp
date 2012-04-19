@@ -55,6 +55,19 @@ public class Sorting {
         }
     }
 
+    public static void bubbleSort(int[] a) {
+        for (int i=a.length-1; i>=0; i--) {
+            boolean sorted = true;
+            for (int j=0; j<i; j++) {
+                if (a[j]>a[j+1]) {
+                    Partition.swap(a, j, j+1);
+                    sorted = false;
+                }
+            }
+            if (sorted) return;
+        }
+    }
+
     public static void main(String[] args) {
         int a[] = {8,7,1,3,10,9,4,5,2,15,4};
         int b[] = Arrays.copyOf(a, a.length);
