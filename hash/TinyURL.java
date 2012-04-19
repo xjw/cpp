@@ -23,11 +23,12 @@ public class TinyURL {
     public String convert_10base_to_62base(long n) {
         StringBuilder sb = new StringBuilder();
         if (n == 0) sb.append(0);
+        System.out.println(n);
         while (n>0) {
-            sb.append(table[n%62]);
+            sb.insert(0,table[(int)n%62]);
             n = n/62;
         }
-        System.out.println(n + "-" + sb);
+        System.out.println(sb);
         return sb.toString();
     }
 
