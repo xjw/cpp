@@ -208,6 +208,23 @@ public class LinkedList {
         p.next = null;
         return head;
     }
+    
+    /*
+     * 1-4-5-6-3
+     * 4-1-6-5-3
+     */
+    public Node swapAdjacentNode(Node head) {
+        if (head == null || head.next == null) return head;
+        Node c, n;
+        c = head;
+        while (c != null && c.next != null) {
+            n = c.next;
+            int t = c.val;
+            c.val = n.val;
+            n.val = t;
+            c = n;
+        }
+    }
 
     public static void main(String[] args) {
         LinkedList list = new LinkedList();

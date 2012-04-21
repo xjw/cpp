@@ -75,6 +75,18 @@ public class Tree<T extends Comparable<T>> {
         return n;
     }
 
+
+    public void findKthLargest(TreeNode<T> n, int k, int i) {
+        if (n == null) return;
+        findKthLargest(n.right, k, i);
+        i++;
+        if (i == k) {
+            // print out node
+            return;
+        } 
+        findKthLargest(n.left, k);
+    }
+
     /*
      * Find smallest node in substree rooted at n
      */
