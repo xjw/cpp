@@ -46,6 +46,53 @@ public class Sudoku {
         return true;
     }
 
+    // --------------------------------------------------
+    // http://www.leetcode.com/onlinejudge
+    // Solve sudoku
+    public void solveSudoku(char[][] board) {
+        solveSudoku(board, 0, 0);
+    }
+    
+    public boolean solveSudoku(char[][] b, int i, int j) {
+        if (i>8) return true;
+        int next_i, next_j;
+        if (j==8) {
+            next_j = 0;
+            next_i = i+1;
+        } else {
+            next_j = j+1;
+            next_i = i;
+        }
+        if (b[i][j] != '.') return solveSudoku(b, next_i, next_j);
+        
+        for (int x = 1; x<=9; x++) {
+            b[i][j] = Character.forDigit(x,10);
+            if (isValid(b, i, j)) {
+                if (solveSudoku(b, next_i, next_j)) 
+                    return true;
+            }
+        }
+        b[i][j] = '.';
+        return false;
+    }
+
+    public boolean isValid(char[][] b, int x, int y) {
+        for (int i=0; i<9; i++) {
+            if ((i != y && b[x][i] == b[x][y]) || 
+                (i != x && b[i][y] == b[x][y]))
+                return false;
+        }
+        int m = 3*(x/3);
+        int n = 3*(y/3);
+        for (int i=m; i<m+3; i++) {
+            for (int j=n; j<n+3; j++) {
+                if (b[i][j] == b[x][y] && !(i==x && j==y)) 
+                return false;
+            }
+        }
+        return true;
+    }
+
     public void test() {
         int[][] s = {
             {4,1,7,3,6,9,8,2,5},
