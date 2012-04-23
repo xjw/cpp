@@ -99,6 +99,22 @@ public class Graph {
         }
     }
 
+    public void floyd_warshall() {
+        int[][] dist = new int[size][size]();
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        for (int k=0; k<size; k++) {
+            for (int i=0; i<size; i++) {
+                for (int j=0; j<size; j++) {
+                    if (dist[i][k]<Integer.MAX_VALUE 
+                            && dist[j][k]<Integer.MAX_VALUE
+                            && (dist[i][k] + dist[j][k] < dist[i][j])) {
+                        dist[i][j] = dist[i][k] + dist[j][k];
+                    }
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         Graph g = new Graph(4, false);
         g.addEdge(0,1,10);
