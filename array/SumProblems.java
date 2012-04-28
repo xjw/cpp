@@ -25,14 +25,17 @@ public class SumProblems {
     }
 
     public ArrayList<ArrayList<Integer>> getThreeSum(int[] num) {
-        Set<ArrayList<Integer>> set = new HashSet<ArrayList<Integer>>();
-        for (int m=1; m<num.length; m++) {
-            int i = 0;
+        Arrays.sort(num);
+        ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
+        for (int m=0; m<num.length; m++) {
+            if (m>0 && num[m] == num[m-1])
+                continue;
+            int i = m+1;
             int j = num.length - 1;
-            while(i<m && m<j) {
+            while(i<j) {
                 int sum = num[i] + num[j] + num[m];
                 if (sum == 0) {
-                    set.add(new ArrayList<Integer>(Arrays.asList(num[i],num[m],num[j])));
+                    list.add(new ArrayList<Integer>(Arrays.asList(num[i],num[m],num[j])));
                     i++;
                     j--;
                 } else if (sum < 0) {
@@ -42,7 +45,36 @@ public class SumProblems {
                 }
             }
         }
-        return new ArrayList<ArrayList<Integer>>(set);
+        return list;
+    }
+
+    // threeSum without using set
+    public ArrayList<ArrayList<Integer>> threeSum(int[] num) {
+        Arrays.sort(num);
+        ArrayList<ArrayList<Integer>> list = new 
+            ArrayList<ArrayList<Integer>>();
+        for (int m=0; m<num.length-2; m++) {
+            // skip same m valume
+            if (m>0 && num[m] == num[m-1]) 
+                continue;
+
+            int i = m+1;
+            int j = num.length-1;
+            while (i<j) {
+                int sum = num[m]+num[i]+num[j];
+                if (sum > 0) j--;
+                else if (sum < 0) i++;
+                else {
+                    list.add(new ArrayList<Integer>(Arrays.asList(
+                        num[m],num[i],num[j])));
+                    i++;
+                    j--;
+                    // skip same i value
+                    while (i<j && num[i] == num[i-1]) i++;
+                }
+            }
+        }
+        return list;        
     }
 
     public int threeSumClosest(int[] num, int target) {
@@ -134,7 +166,8 @@ public class SumProblems {
 
     public static void main(String[] args) {
         SumProblems s = new SumProblems();
-        System.out.println(s.getThreeSum(new int[]{-1,0,1,2,-1,-4}));
+        System.out.println(s.getThreeSum(new int[]{0, 0, 0, 0, -1, -1, -1, -1, 2}));
+        System.out.println(s.threeSum(new int[]{0, 0, 0, 0, -1, -1, -1, -1, 2}));
         System.out.println(s.fourSum(new int[]{0,0,0,0}, 0));
         System.out.println(s.threeSumClosest(new int[]{1,1,1,0}, 100));
     }
