@@ -80,6 +80,23 @@ public class Partition {
         for (int k=r; k>n; k--,v++) swap(a, k, v);
     }
 
+    /*
+     * partition three different values, m is the middle value
+     */
+    public static void partitionDutchFlag(int[] a, int m) {
+        int i, j, k;
+        i = k = 0;
+        j = a.length-1;
+        while (k<=j) {
+            if (a[k]<m)
+                swap(a,k++,i++);
+            else if (a[k]>m)
+                swap(a,k,j--);
+            else 
+                k++;
+        }
+    }
+
     public static void merge(int[] a, int l, int m, int r) {
         int[] aux = new int[r-l+1];
         int i, j, k;
@@ -110,12 +127,22 @@ public class Partition {
         System.out.println(Arrays.toString(a));
     }
 
-    public static void main(String[] args) {
+    public static void testDutchFlagPartition() {
+        int a[] = {2,2,1,1,3,3};
+        partitionDutchFlag(a,2);
+        System.out.println(Arrays.toString(a));
+    }
+
+    public static void testMerge() {
         int[] a = {1,2,6,3,4,5};
         int[] b = Arrays.copyOf(a, a.length);
         merge(a, 0, 3, 5);
         mergeB(b, 0, 3, 5);
         System.out.println(Arrays.toString(a));
         System.out.println(Arrays.toString(b));
+    }
+
+    public static void main(String[] args) {
+        testDutchFlagPartition();
     }
 }
