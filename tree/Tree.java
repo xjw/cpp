@@ -84,7 +84,7 @@ public class Tree<T extends Comparable<T>> {
             // print out node
             return;
         } 
-        findKthLargest(n.left, k);
+        findKthLargest(n.left, k, i);
     }
 
     /*
@@ -158,6 +158,87 @@ public class Tree<T extends Comparable<T>> {
             && equalNode(n1.right, n2.right));
     }
 
+    public int height(TreeNode<T> n) {
+        return (n == null)? 0
+            : 1 + Math.max(height(n.left), height(n.right));
+    }
+
+    public int width(TreeNode<T> root) {
+        if (root == null)
+            return 0;
+        Queue<TreeNode<T>> q = new LinkedList<TreeNode<T>>();
+        q.offer(root);
+        int max, cur, next;
+        next = 0;
+        max = cur = 1;
+        while (!q.isEmpty()) {
+            TreeNode<T> n = q.poll();
+            cur--;
+            if (n.left != null) {
+                q.offer(n.left);
+                next++;
+            }
+            if (n.right != null) {
+                q.offer(n.right);
+                next++;
+            }
+            if (cur == 0) {
+                max = Math.max(max, next);
+                cur = next;
+                next = 0;
+            }
+        }
+        return max;
+    }
+
+    /*
+     * Using parent pointer
+     */
+    public TreeNode<T> inOrderSucessorWithParent(TreeNode<T> node) {
+        TreeNode<T> succ = null;
+
+        if (node == null)
+            return succ;
+        if (node.right != null) {
+            succ = node.right;
+            while (succ.left != null)
+                succ = succ.left;
+        }
+        return succ;
+        /*
+        while (node.parent != null 
+                && node == node.parent.right)
+            node = node.parent;
+        return node.parent;
+        */
+    }
+
+    /*
+     * No parent pointer, top down from root
+     * Assuming binary search tree
+     */
+    public TreeNode<T> inOrderSucessor(TreeNode<T> node, TreeNode<T> root) {
+        if (node == null || root == null)
+            return null;
+        TreeNode<T> succ = null;
+        if (node.right != null) {
+            succ = node.right;
+            while (succ.left != null)
+                succ = succ.left;
+            return succ;
+        }
+        while (root != null) {
+            if (root == node)
+                break;
+            else if (node.data.compareTo(root.data) > 0) 
+                root = root.right;
+            else {
+                root = root.left;
+                succ = root;
+            }
+        }
+        return succ;
+    }
 
     public static void main(String[] args) {
         Tree<Integer> tree1 = new Tree<Integer>();
@@ -170,8 +251,9 @@ public class Tree<T extends Comparable<T>> {
         //Tree<Integer> tree2 = TreeUtils.buildAIntegerTreeSmall();
 
         tree1.printByLevel();
-        tree1.remove(3);
+        //tree1.remove(3);
         tree1.printByLevel();
+        System.out.println(tree1.width(tree1.root));
         //assert !tree1.equals(tree2);
     }
 }
