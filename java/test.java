@@ -1,10 +1,17 @@
+import java.util.*;
+import java.util.regex.*;
+
+abstract class tt {
+    public int foo() {
+        return 1;
+    }
+}
+
 public class test {
     public static void main(String[] args) {
-        for (int i=1000000000; i<=Integer.MAX_VALUE; i++) {
-                if ((i > Integer.MAX_VALUE/10) && i == (i*10)/10) {
-                    System.out.println(i);
-                    return;
-                }
-        }
+        String s = "";
+        System.out.println(s.charAt(0));
+        System.out.println(s.substring(0));
+        System.out.println(s.substring(1));
     }
 }

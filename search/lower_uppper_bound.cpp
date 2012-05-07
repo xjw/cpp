@@ -5,8 +5,9 @@
  * http://www.mitbbs.com/article_t/JobHunting/31730553.html
  *
  * notice the difference lower_bound vs upper_bound
- * lower_bound<=x
- * upper_bound>x
+ * lower_bound 1st one = x
+ * upper_bound 1st one > x
+ * if (lower_bound == upper_bound) then x does not exist
  */
 
 #include <iostream>
