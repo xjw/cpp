@@ -12,27 +12,23 @@ public class Sqrt {
     // PART I: Calculate an integer square root
 
     /*
-     * 1. int sqrt using binary search
+     * 1. int sqrt using binary search/ bisection method
+     * http://www.mathpath.org/Algor/squareroot/algor.square.root.binary.htm
      */
-    public static int sqrtBinary(int n) {
-        if (n<0) throw new IllegalArgumentException();
-        if (n==0 || n==1) return n;
-        int l,r,m,x0,x1;
-        l = 0;
-        r = n;
-        m = n/2;
+    public static int sqrtBinary(int x) {
+        if (x<0) throw new IllegalArgumentException();
+        if (x == 0 || x == 1) return x;
+        int l, r, m;
+        l = 0; r = x; m =x/2;
         do {
-            x0 = m;
-            if (m > Integer.MAX_VALUE/m || m*m>n) r = m;
-            else if (m*m == n) return m;
-            else l=m;
-            m = l + (r-l)/2;
-            x1 = m;
-        } while (Math.abs(x0-x1)>1);
-
-        while (x1*x1>n) x1--;
-        return x1;
+            m = l+(r-l)/2;
+            if (m>Integer.MAX_VALUE/m || m*m>x) r=m;
+            else if (m*m<x) l=m;
+            else return m;
+        } while (r-l>1);
+        return l;
     }
+
 
     /*
      * x1 = (x0 + n/x0)/2
@@ -146,16 +142,21 @@ public class Sqrt {
         };
         for (int i=0; i<a.length; i++) {
             assert a[i][1] == sqrtNewtonBest(a[i][0]) ;
+            assert a[i][1] == sqrtBinary(a[i][0]) ;
+            assert a[i][1] == sqrtBinary2(a[i][0]) ;
         }
     }
 
-    public static void main(String[] args) {
-        testIntegerSqrt();
+    public static void testSqrt() {
         double x;
         Scanner sc = new Scanner(System.in);
         while ((x = sc.nextDouble())>0) {
             System.out.println(sqrtBinary(x));
             System.out.println(sqrtNewton(x));
         }
+    }
+
+    public static void main(String[] args) {
+        testIntegerSqrt();
     }
 }
