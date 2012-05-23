@@ -15,11 +15,28 @@ public class GrayCode {
 
     void generateGrayCodeSimple(int n) {
         for (int i=0; i< (1<<n); i++) {
-            System.out.println(Integer.toBinaryString(graycodeHelper(i)));
+            //System.out.println(Integer.toBinaryString(graycodeHelper(i)));
+            System.out.println(graycodeHelper(i));
         }
     }
 
-    // Approach 2: recursion
+    /* Approach 2
+     * BEST!!!!!!!
+     * IDEA is to append 1 to the previous values to get new additional values
+     */
+     ArrayList<Integer> grayCode(int n) {
+         ArrayList<Integer> list = new ArrayList<Integer>();
+         list.add(0);
+         for (int i=0; i<n; i++) {
+             for (int j=list.size()-1; j>=0; j--) {
+                 list.add(list.get(j) | (1<<i));
+             }
+         }
+         return list;
+     }
+
+
+    // Approach 3: recursion
     // http://introcs.cs.princeton.edu/java/23recursion/GrayCode.java.html
     void grayReverse(String prefix, int n) {
         if (n == 0) {
@@ -39,8 +56,9 @@ public class GrayCode {
         grayReverse(prefix+"1",n-1);
     }
 
+
     /*
-     Approach 3: iterative
+     Approach 4: iterative
      To construct the binary-reflected Gray code iteratively,
      start with the code 0, and at step i find the bit position of the least significant '1' in the
      binary representation of i - flip the bit at that position in the previous code to get the next code.
@@ -89,8 +107,10 @@ public class GrayCode {
         GrayCode g = new GrayCode();
         while ((x = sc.nextInt()) > 0) {
             //System.out.println(generateGrayCodeIterative(x));
-            g.gray("", x);
-            g.move(x, true);
+            //g.gray("", x);
+            System.out.println(g.grayCode(x));
+            g.generateGrayCodeSimple(x);
+            //g.move(x, true);
         }
     }
 }
