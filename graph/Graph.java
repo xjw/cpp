@@ -115,6 +115,17 @@ public class Graph {
         }
     }
 
+    Node cloneGraph(Node node, Map<Node, Node> map) {
+        if (map.hasKey(node)) return map.get(node);
+        Node newNode = new Node(node);
+        map.put(node, newNode);
+        for (Edge e : list.edges) {
+            Node neighbor = cloneGraph(e.v, set);
+            newNode.addEdge(newNode.v, neighbor.v, 0);
+        }
+        return newNode;
+    }
+
     public static void main(String[] args) {
         Graph g = new Graph(4, false);
         g.addEdge(0,1,10);
