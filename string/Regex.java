@@ -46,6 +46,34 @@ public class Regex {
         return isMatch(s.substring(i), p.substring(2));
     }
 
+    // isMatch v2, use index instead of substring
+    static boolean isMatch2(String s, String p) {
+        return match(s, p, 0, 0);
+    }
+
+    static boolean match(String s1, String s2, int i1, int i2) {
+        int l1 = s1.length();
+        int l2 = s2.length();
+        if (i2 == l2) return i1 == l1;
+
+        // next is not *
+        if (i2 == l2-1 || s2.charAt(i2+1) != '*') {
+            return (i1 < l1 
+                    && (s1.charAt(i1) == s2.charAt(i2) || s2.charAt(i2) == '.')); 
+        }
+
+        while (i1 < l1) {
+            if (match(s1, s2, i1, i2+2)) //skip current s1
+                return true;
+            else if (s1.charAt(i1) == s2.charAt(i2) || s2.charAt(i2) == '.')
+                i1++;
+            else 
+                return false;
+        }
+
+        return match(s1, s2, i1, i2+2);
+    }
+
 
     static void testCases() {
         String[][] tests = new String[][]{
@@ -87,12 +115,13 @@ public class Regex {
             {"abcdede", "ab.*de"},
         };
         for (int i=0; i<tests.length; i++) {
-            System.out.println(isMatch(tests[i][0], tests[i][1]));
+            System.out.println(isMatch2(tests[i][0], tests[i][1]));
         }
     }
 
     public static void main(String[] args) {
         System.out.println(isMatch("a", "."));
-        //testCases();
+        System.out.println(isMatch2("ab", ".*"));
+        testCases();
     }
 }
