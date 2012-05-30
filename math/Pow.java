@@ -24,11 +24,8 @@ public class Pow {
      */
     static public double pow(double x, int n) {
         if (n==0) return 1;
-        if (x==0) {
-            if (n<0) throw new ArithmeticException("divide by zero");
-            return 0;
-        }
         if (n<0) {
+            if (x==0) throw new ArithmeticException("divide by zero");
             x = 1/x;
             n = -n;
         }

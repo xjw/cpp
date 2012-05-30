@@ -8,6 +8,30 @@ public class Sorting {
         quickSort(a, m+1, r);
     }
 
+    /*
+     * Better quicksort using three way partition
+     * Improvement for duplicate key
+     */
+    public static void quickSortOptimized(int[] a, int l, int r) {
+        if (l>=r) return;
+        int i, lower, upper;
+        i = lower = l;
+        upper = r;
+        int p = a[i];
+        while (i<=upper) {
+            if (a[i] < p)
+                Partition.swap(a, i++, lower++);
+            else if (a[i]>p) {
+                Partition.swap(a, i, upper);
+                upper--;
+            }
+            else
+                i++;
+        }
+        quickSortOptimized(a, l, lower-1);
+        quickSortOptimized(a, upper+1, r);
+    }
+
     public static void mergeSort(int [] a, int l, int r) {
         if (l>=r) return;
         int m = l + (r-l)/2;
@@ -55,7 +79,7 @@ public class Sorting {
         }
     }
 
-    public static void bubbleSort(int[] a) {
+    public static void bubbleSortOptimized(int[] a) {
         for (int i=a.length-1; i>=0; i--) {
             boolean sorted = true;
             for (int j=0; j<i; j++) {
@@ -75,18 +99,21 @@ public class Sorting {
         int d[] = Arrays.copyOf(a, a.length);
         int e[] = Arrays.copyOf(a, a.length);
         int f[] = Arrays.copyOf(a, a.length);
+        int g[] = Arrays.copyOf(a, a.length);
         quickSort(a, 0, a.length-1);
         mergeSort(b, 0, b.length-1);
         bubbleSort(c);
         insertionSort(d);
         insertionSortNoSwap(e);
         selectionSort(f);
+        quickSortOptimized(g, 0, g.length-1);
         System.out.println(Arrays.toString(a));
         System.out.println(Arrays.toString(b));
         System.out.println(Arrays.toString(c));
         System.out.println(Arrays.toString(d));
         System.out.println(Arrays.toString(e));
         System.out.println(Arrays.toString(f));
+        System.out.println(Arrays.toString(g));
     }
 
 }

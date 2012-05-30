@@ -1,5 +1,13 @@
 import java.util.*;
 
+/*
+ * Attention to the difference among
+ *
+ * partitionBasic (i, k) return k
+ * partitionDutchFlag (i, j, k) return k
+ * partition (just i, j) return i
+ *
+ */
 public class Partition {
     public static void swap (int[] a, int i, int j) {
         if (i==j) return;
@@ -20,6 +28,7 @@ public class Partition {
         swap(a, j, r);
         return j;
     }
+
 
     /*
      * this is wrong for example int[] a = {1,6,5,4,3,7};
@@ -57,6 +66,16 @@ public class Partition {
         return i;
     }
 
+    public static int partitionHoare(int[] a, int l, int r) {
+        int p = a[l+(r-l)/2]; // can be any between l and r
+        while (true) {
+            do r--; while (a[r]>p);
+            do l++; while (a[l]<p);
+            if (l<r) swap(a, l, r);
+            else return r+1;
+        }
+    }
+
     /*
      * http://www.sorting-algorithms.com/static/QuicksortIsOptimal.pdf
      */
@@ -83,18 +102,19 @@ public class Partition {
     /*
      * partition three different values, m is the middle value
      */
-    public static void partitionDutchFlag(int[] a, int m) {
+    public static int partitionDutchFlag(int[] a, int m) {
         int i, j, k;
         i = k = 0;
         j = a.length-1;
-        while (k<=j) {
-            if (a[k]<m)
-                swap(a,k++,i++);
-            else if (a[k]>m)
-                swap(a,k,j--);
+        while (i<=j) { //import while condition until =====
+            if (a[i]<m)
+                swap(a,i++,k++);
+            else if (a[i]>m)
+                swap(a,i,j--);
             else 
-                k++;
+                i++;
         }
+        return k;
     }
 
     public static void merge(int[] a, int l, int m, int r) {
@@ -121,15 +141,17 @@ public class Partition {
     public static void testPartition() {
         int[] a = {1,2,1,3,6,4,5,7,3};
         int len = a.length;
-        partitionBasic(a, 0, len-1);
-        partition(a, 0, len-1);
-        partitionThreeWay(a, 0, len-1);
+        //partitionBasic(a, 0, len-1);
+        //partition(a, 0, len-1);
+        //partitionThreeWay(a, 0, len-1);
+        System.out.println(partition(a, 0, len-1));
         System.out.println(Arrays.toString(a));
     }
 
     public static void testDutchFlagPartition() {
-        int a[] = {2,2,1,1,3,3};
-        partitionDutchFlag(a,2);
+        //int a[] = {2,2,1,1,3,3};
+        int a[] = {7,3,4,1,5,4,2,2,1,1,3,3,6,9,1};
+        System.out.println(partitionDutchFlag(a,4));
         System.out.println(Arrays.toString(a));
     }
 
@@ -144,5 +166,6 @@ public class Partition {
 
     public static void main(String[] args) {
         testDutchFlagPartition();
+        //testPartition();
     }
 }

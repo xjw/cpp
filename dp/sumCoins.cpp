@@ -102,7 +102,8 @@ int main() {
   int sum;
   cin>>sum;
   cout<<endl;
-  int a[] = {1,5,10,25};
+  //int a[] = {1,5,10,25};
+  int a[] = {1,2,5,21,25};
   // int a[] = {1,5,10,25};
   int size_a = sizeof(a)/sizeof(a[0]);
   vector<int> v;
@@ -114,7 +115,7 @@ int main() {
   delete [] c;
 
   cout << endl;
-  // leastSumCoins(a, size_a, sum);
+  //leastSumCoins(a, size_a, sum);
   findLeastCoins(a, size_a, sum);
   return 1;
 }
